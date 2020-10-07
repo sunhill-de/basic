@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\ORM;
+namespace Sunhill\basic;
 
 use Illuminate\Support\ServiceProvider;
 use \Sunhill\ORM\Managers\class_manager;
