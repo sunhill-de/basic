@@ -1,0 +1,33 @@
+{
+	"name" : "sunhill/basic",
+	"description" : "The sunhill basics",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Klaus Dimde",
+			"email" : "klaus@dimde.info"
+		}
+	],
+	"minimum-stability" : "dev",
+	"autoload" : {
+		"psr-4" : {
+			"Sunhill\\Basic\\Test\\" : [
+				"tests"
+			],
+			"Sunhill\\Basic\\Tests\\" : [
+				"tests"
+			],
+			"Sunhill\\Basic\\" : "src"
+		}
+	},
+	"extra" : {
+		"laravel" : {
+			"providers" : [
+				"Sunhill\\Basic\\SunhillServiceProvider"
+			],
+			"aliases" : {
+				"Classes" : "Sunhill\\Basic\\Facades\\Classes"
+			}
+		}
+	}
+}
