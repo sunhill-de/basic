@@ -4,9 +4,9 @@
  * Provides a common basic class for all sunhill project classes
  * Lang en
  * Reviewstatus: 2020-10-07
- * Localization: unknown
- * Documentation: unknown
- * Tests: unknown
+ * Localization: incomplete
+ * Documentation: complete
+ * Tests: BasicTest.php
  * Coverage: unknown
  */
 

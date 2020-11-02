@@ -23,11 +23,8 @@
 	"extra" : {
 		"laravel" : {
 			"providers" : [
-				"Sunhill\\Basic\\SunhillServiceProvider"
-			],
-			"aliases" : {
-				"Classes" : "Sunhill\\Basic\\Facades\\Classes"
-			}
+				"Sunhill\\Basic\\SunhillBasicServiceProvider"
+			]
 		}
 	}
 }

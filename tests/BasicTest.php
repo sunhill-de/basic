@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\ORM\Tests;
+namespace Sunhill\Basic\Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Sunhill\Basic\SunhillException;
