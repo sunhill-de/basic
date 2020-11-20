@@ -36,6 +36,7 @@ class BasicTest extends BaseTestCase
     
     public function testException() {
         $this->expectException(SunhillException::class);
-        $this->notexisting = 2;
+        $test = new extension();
+        $test->notexisting = 2;
     }
 }
