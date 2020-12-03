@@ -73,6 +73,17 @@ abstract class SunhillTestCase extends BaseTestCase {
     }
     
     /**
+     * Alias for invokeMethod
+     * @param unknown $object
+     * @param unknown $methodName
+     * @param array $parameters
+     * @return \Sunhill\Basic\Tests\unknown
+     */
+    public function callProtectedMethod(&$object, $methodName, array $parameters = array()) {
+        return $this->invokeMethod($object, $methodName, $parameters);    
+    }
+    
+    /**
      * copied and modified from https://stackoverflow.com/questions/18558183/phpunit-mockbuilder-set-mock-object-internal-property
      * Sets the value of the property "$property_name" of object "$object" to value "$value"
      * @param unknown $object
