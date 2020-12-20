@@ -16,7 +16,7 @@ class Check extends Command
         $this->info('Performing checks...');
         $result = Checks::Check();
         foreach ($result as $single_result) {
-            if ($single_resuls->result == 'OK') {
+            if ($single_result->result == 'OK') {
                 $this->info($single_result->name.'... OK');
             } else {
                 $this->error($single_result->name.'... FAILED:');
