@@ -3,14 +3,14 @@
 namespace Sunhill\basic;
 
 use Illuminate\Support\ServiceProvider;
-use \Sunhill\ORM\Managers\class_manager;
-use \Sunhill\ORM\Managers\object_manager;
-use \Sunhill\ORM\Managers\tag_manager;
+use Sunhill\Basic\Checker\checks;
 
 class SunhillBasicServiceProvider extends ServiceProvider
 {
     public function register()
     {        
+        $this->app->singleton(checks::class, function () { return new checks(); } );
+        $this->app->alias(checks::class,'checks');
     }
     
     public function boot()
