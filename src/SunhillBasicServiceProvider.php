@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\basic;
+namespace Sunhill\Basic;
 
 use Illuminate\Support\ServiceProvider;
 use Sunhill\Basic\Checker\checks;
