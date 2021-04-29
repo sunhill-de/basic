@@ -39,7 +39,7 @@ class checks extends loggable {
      */
     public function Check() {
         if (empty($this->checker_classes)) {
-            throw new CheckException('No checkers installed');
+            throw new CheckException(__("No checkers installed"));
         }
         return $this->walk_checkers();
     }

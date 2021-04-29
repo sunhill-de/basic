@@ -66,7 +66,7 @@ class descriptor extends loggable implements \Iterator
         }
         if ($oldvalue !== $value) {
             if (!$this->check_changing_trigger($name,$oldvalue,$value)) {
-                throw new DescriptorException("Valuechange forbidden by trigger.");
+                throw new DescriptorException(__("Valuechange forbidden by trigger."));
             }
             $this->fields[$name] = $value;
             $this->check_changed_trigger($name,$oldvalue,$value);            
@@ -75,7 +75,7 @@ class descriptor extends loggable implements \Iterator
 
     private function check_autoadd($name,$value) {
         if (!isset($this->fields[$name]) && !$this->autoadd) {
-            throw new DescriptorException("Autoadd forbidden.");
+            throw new DescriptorException(__("Autoadd forbidden."));
         }        
     }
     
@@ -143,7 +143,7 @@ class descriptor extends loggable implements \Iterator
             $this->$name = $params[0];
             return $this;
         }
-        throw new DescriptorException("Unknown method '$name'");
+        throw new DescriptorException(__("Unknown method ':name'",['name'=>$name]));
     }
 
     /**
