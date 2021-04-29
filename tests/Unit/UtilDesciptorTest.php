@@ -156,4 +156,28 @@ class UtilDescriptorTest extends SunhillTestCase
         $this->assertTrue($test->is_defined('abc'));
         $this->assertFalse($test->is_defined('notdefined'));
     }
+    
+    public function testAssertHasKey() {
+        $test = new descriptor();
+        $test->abc = 'abc';
+        $this->assertTrue($test->assertHasKey('abc'));
+        $this->assertFalse($test->assertHasKey('notdefined'));    
+    }
+        
+    public function testAssertKeyIs() {
+        $test = new descriptor();
+        $test->abc = 'abc';
+        $this->assertTrue($test->assertKeyIs('abc','abc'));
+        $this->assertFalse($test->assertKeyIs('notdefined','abc'));    
+        $this->assertFalse($test->assertKeyIs('abc','def'));    
+    }
+    
+    public function testAssertKeyHas() {
+        $test = new descriptor();
+        $test->abc = ['abc','def','ghi'];
+        $this->assertTrue($test->assertKeyHas('abc','abc'));
+        $this->assertFalse($test->assertKeyHas('notdefined','abc'));    
+        $this->assertFalse($test->assertKeyHas('abc','xyz'));    
+    }
+    
 }
