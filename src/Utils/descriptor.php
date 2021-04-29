@@ -225,4 +225,33 @@ class descriptor extends loggable implements \Iterator
     {
         return (($this->pointer >= 0) && ($this->pointer < count($this->fields)));
     }
+    
+    /**
+     * Assertion that the $key exists
+     */
+    public function assertHasKey(string $key) {
+        return $this->is_defined($key);
+    }
+    
+    /**
+     * Assertion that the key exists and is value $value
+     */
+    public function assertKeyIs(string $key,$value) {
+        return $this->is_defined($key) && ($this->$key == $value);
+    }
+    
+    /**
+     * Assertion that the key exists, is an array and has the value $test
+     */
+    public function assertKeyHas(string $key,$test) {
+        if (!$this->is_defined($key) || !is_array($this->$key)) {
+            return false;
+        }
+        foreach ($this->$key as $value) {
+            if ($value == $test) {
+                return true;
+            }
+        } 
+        return false;
+    }    
 }
