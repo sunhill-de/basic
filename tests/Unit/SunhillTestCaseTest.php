@@ -62,4 +62,45 @@ class SunhillTestCaseTest extends SunhillTestCase
     public function testCheckArrayFail2() {
         $this->assertTrue($this->checkArrays(['A','B','C'],['A','B','D']));
     }
+    
+    public function testAssertArrayContainsPass() {
+        $this->assertArrayContains(['A','B','C'],['A','B','C']);
+    }
+    
+    public function testAssertArrayContainsyPass2() {
+        $this->assertArrayContains(['A','B','C'],['A','B','C','D']);
+    }
+
+    public function testGetFieldSimple() {
+        $test = new \StdClass();
+        $test->test = 'A';
+        $this->assertEquals('A',$this->get_field($test,'test'));
+    }
+    
+    public function testGetFieldArray1() {
+        $test = new \StdClass();
+        $test->test = ['A','B','C'];
+        $this->assertEquals('A',$this->get_field($test,'test[0]'));
+    }
+    
+    public function testGetFieldArray2() {
+        $test = new \StdClass();
+        $test->test = ['A'=>1,'B'=>2,'C'=>3];
+        $this->assertEquals(1,$this->get_field($test,'test[A]'));
+    }
+        
+    public function testGetFieldObject() {
+        $test = new \StdClass();
+        $test->test = new \StdClass();
+        $test->test->subtest = 'A';
+        $this->assertEquals('A',$this->get_field($test,'test->subtest'));
+    }
+    
+    public function testGetFieldObject() {
+        $test = new \StdClass();
+        $test->test = [new \StdClass()];
+        $test->test[0]->subtest = 'A';
+        $this->assertEquals('A',$this->get_field($test,'test->subtest'));
+    }
+    
 }
