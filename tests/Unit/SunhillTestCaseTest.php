@@ -1,0 +1,65 @@
+<?php
+
+namespace Sunhill\Basic\Tests\Unit;
+
+use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\SunhillException;
+use Sunhill\Basic\base;
+use Tests\CreatesApplication;
+
+class SunhillTestCaseTestClass {
+
+    protected $protectedValue = 'A';
+    
+    protected function SetValue($value) {
+        $this->protectedValue = $value;
+    }
+    
+    public function GetValue() {
+        return $this->protectedValue;
+    }
+}
+
+class SunhillTestCaseTest extends SunhillTestCase
+{
+   
+    use CreatesApplication;
+    
+    public function testNullTest() {
+        $test = new SunhillTestCaseTestClass();
+        $this->assertEquals('A',$test->GetValue());
+    }
+    
+    public function testSetProtectedProperty() {
+        $test = new SunhillTestCaseTestClass();
+        $this->setProtectedProperty($test,'protectedValue','B');
+        $this->assertEquals('B',$test->GetValue());
+    }
+    
+    public function testGetProtectedProperty() {
+        $test = new SunhillTestCaseTestClass();
+        $this->assertEquals('A',$this->getProtectedProperty($test,'protectedValue'));        
+    }
+    
+    public function testCallProtectedMethod() {
+        $test = new SunhillTestCaseTestClass();
+        $this->invokeMethod($test,'SetValue',['B']);
+        $this->assertEquals('B',$test->GetValue());
+    }
+    
+    public function testCheckArrayPass() {
+        $this->assertTrue($this->checkArrays(['A','B','C'],['A','B','C']));
+    }
+    
+    public function testCheckArrayPass2() {
+        $this->assertTrue($this->checkArrays(['A','B','C'],['A','B','C','D']));
+    }
+    
+    public function testCheckArrayFail() {
+        $this->assertTrue($this->checkArrays(['A','B'],['D','E','C']));
+    }
+    
+    public function testCheckArrayFail2() {
+        $this->assertTrue($this->checkArrays(['A','B','C'],['A','B','D']));
+    }
+}
