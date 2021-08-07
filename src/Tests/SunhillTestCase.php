@@ -52,7 +52,7 @@ abstract class SunhillTestCase extends BaseTestCase {
         } else {
             return $loader;
         }
-    }
+    }   
     
     /**
      * copied from https://jtreminio.com/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/

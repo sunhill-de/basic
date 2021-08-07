@@ -96,11 +96,11 @@ class SunhillTestCaseTest extends SunhillTestCase
         $this->assertEquals('A',$this->get_field($test,'test->subtest'));
     }
     
-    public function testGetFieldObject() {
+    public function testGetArrayFieldObject() {
         $test = new \StdClass();
         $test->test = [new \StdClass()];
         $test->test[0]->subtest = 'A';
-        $this->assertEquals('A',$this->get_field($test,'test->subtest'));
+        $this->assertEquals('A',$this->get_field($test,'test[0]->subtest'));
     }
     
 }
