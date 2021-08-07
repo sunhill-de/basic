@@ -25,6 +25,13 @@ class checks extends loggable {
     protected $checker_classes = [];
    
     /**
+     * This method cleans all checks so that after it there is no check installed
+     */
+    public function Purge() {
+        $this->checker_classes = [];
+    }
+    
+    /**
      Every package of the sunhill framework can install one ore more checker classes. Normally this is done in the Service Routine of laravel
      @param $class_name The fully qualified class name of the checker class.
      */

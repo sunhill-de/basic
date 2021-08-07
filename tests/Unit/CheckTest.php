@@ -35,11 +35,13 @@ class CheckTest extends SunhillTestCase
     use CreatesApplication;
     
     public function testNoCheckerInstalled() {
+        Checks::Purge();
         $this->expectException(CheckException::class);
         Checks::Check();
     }
     
     public function testInstallChecker() {
+        Checks::Purge();
         Checks::InstallChecker(test_checker::class);
         $result = Checks::Check();
         $this->assertEquals('OK',$result[0]->result);
@@ -47,6 +49,7 @@ class CheckTest extends SunhillTestCase
     }
     
     public function testCheckFail() {
+        Checks::Purge();
         Checks::InstallChecker(test_checker::class);
         Checks::InstallChecker(fail_checker::class);        
         $result = Checks::Check();
