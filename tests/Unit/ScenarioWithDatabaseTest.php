@@ -162,4 +162,35 @@ class ScenarioWithDatabaseTest extends SunhillTestCase
         $result = DB::table('testtable')->where('id',3)->first();
         $this->assertEquals(2,$result->a);
     }
+    
+    public function testFillTable_withNull() {
+        DB::statement('drop table if exists testtable;');
+        DB::statement('create table testtable (id int auto_increment primary key,a varchar(2),b int)');
+        $test = new ScenarioWithDatabaseTestScenario();
+        $this->callProtectedMethod($test,'filltable',['testtable',[['a','b'],[
+            [NULL,2],
+            ['A',NULL],
+            ['A','NULL'],
+            ['A','=>NULL'],
+        ]]]);
+        $result = DB::table('testtable')->where('id',1)->first();
+        $this->assertEquals(null,$result->a);
+        $result = DB::table('testtable')->where('id',2)->first();
+        $this->assertEquals(null,$result->b);
+        $result = DB::table('testtable')->where('id',3)->first();
+        $this->assertEquals(null,$result->b);
+        $result = DB::table('testtable')->where('id',4)->first();
+        $this->assertEquals(null,$result->b);
+    }
+    
+    // This is a feature test
+    public function testSetupDatabase() {
+        DB::statement('drop table if exists testtable;');
+        DB::statement('drop table if exists another;');
+        $test = new ScenarioWithDatabaseTestScenario();
+        $this->callProtectedMethod($test,'SetupDatabase',[]);
+        $this->callProtectedMethod($test,'SetupTables',[]);
+        $result = DB::table('another')->where('id',2)->first();
+        $this->assertEquals(4,$result->reference);
+    }
 }

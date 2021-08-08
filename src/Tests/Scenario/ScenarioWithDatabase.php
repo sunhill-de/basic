@@ -66,7 +66,7 @@ trait ScenarioWithDatabase {
             // We expect an array as a function result, if not this is an error
             throw \Exception("GetTableContents doesn't return an array");
         }
-        foreach ($descriptor as $table => $descriptor) {
+        foreach ($descriptors as $table => $descriptor) {
             $this->fillTable($table,$descriptor);
         }        
     }
@@ -100,7 +100,9 @@ trait ScenarioWithDatabase {
         $first = true;
         foreach ($values as $value) {
             $result .= $first?'':',';
-            if (is_string($value) && (substr($value,0,2) == '=>')) {
+            if (is_null($value) || ($value === 'NULL') || ($value === '=>NULL')) {
+                $result .= 'NULL';
+            } else  if (is_string($value) && (substr($value,0,2) == '=>')) {
                 $result .= "'".$this->getReference($value)."'";
             } else {
                 $result .= "'".$value."'";
