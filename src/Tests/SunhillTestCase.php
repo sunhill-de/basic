@@ -19,9 +19,10 @@ abstract class SunhillTestCase extends BaseTestCase {
 
     /**
      * Return the temporary dir that is used to store test data 
+     * Note: This is public because the scenarios have to access this
      * @return unknown
      */
-    protected function GetTempDir() {
+    public function GetTempDir() {
         //Create the dir if it doesn't exist
         if (!file_exists(storage_path('/temp'))) {
             exec("mkdir ".storage_path().'/temp');
