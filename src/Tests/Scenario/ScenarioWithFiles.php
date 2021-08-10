@@ -12,8 +12,44 @@
 
 namespace Sunhill\Basic\Tests\Scenario;
 
-trait ScenarioWithDatabase {
+trait ScenarioWithFiles {
 
+    protected $target; /**<< Stores a prefix for all file dirs */
+    
+    /**
+     * Sets the target (the prefix for all directories) to a new value
+     * @param string $path
+     * @return \Sunhill\Basic\Tests\Scenario\ScenarioWithFiles
+     */
+    protected function SetTarget(string $path) {
+        $this->target = $path;
+        return $this;
+    }
+    
+    /**
+     * Returns the target
+     * @return unknown
+     */
+    protected function GetTarget() {
+        return $this->target;
+    }
+    
+    /**
+     * Prepends a dir with the target
+     * @param string $subpath
+     * @return string
+     */
+    protected function GetCompletePath(string $subpath) {
+        return $this->target.$subpath;    
+    }
+    
+    /**
+     * Wipes out all files, dirs and links in the target
+     */
+    protected function ClearTarget() {
+        exec("rm -rf ".$this->GetTarget().'/*');
+    }
+    
     protected function SetUpFiles() {
         $descriptors = $this->GetFiles();
         foreach ($descriptors as $table => $descriptor) {
