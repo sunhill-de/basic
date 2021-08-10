@@ -30,7 +30,7 @@ class ScenarioWithFilesTestScenario extends ScenarioBase{
         
         protected function GetLinks() {
             return [
-                ['link'=>'link.txt','target'=>'test.txt'],
+                ['link'=>'/link.txt','target'=>'test.txt'],
                 ['link'=>'/test/subdir/link.txt','target'=>'../../test.txt']
             ];
         }
