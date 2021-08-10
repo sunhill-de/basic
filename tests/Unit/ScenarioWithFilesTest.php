@@ -37,6 +37,12 @@ class ScenarioWithFilesTest extends SunhillTestCase
    
     use CreatesApplication;
 
+    protected function SetupScenario() {
+        $test = new ScenarioWithFilesTestScenario();
+        $this->callProtectedMethod($test,'SetTarget',[$this->GetTempDir()]);
+        return $test;
+    }
+    
     public function testTarget() {
         $test = new ScenarioWithFilesTestScenario();
         $this->callProtectedMethod($test,'SetTarget',['/target/dir']);
@@ -50,8 +56,7 @@ class ScenarioWithFilesTest extends SunhillTestCase
     }
     
     public function testClearTarget() {
-        $test = new ScenarioWithFilesTestScenario();
-        $this->callProtectedMethod($test,'SetTarget',[$this->GetTempDir()]);
+        $test = $this->SetupScenario();
         exec('touch '.$this->GetTempDir().'/test.txt');
         $this->assertTrue(file_exists($this->GetTempDir().'/test.txt'));
         $this->callProtectedMethod($test,'ClearTarget',[]);

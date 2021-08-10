@@ -4,9 +4,9 @@
  * An extension to scenarios that handle handle filesystems
  * Lang en
  * Reviewstatus: 2021-08-05
- * Localization: incomplete
+ * Localization: none required
  * Documentation: complete
- * Tests: 
+ * Tests: tests/Unit/ScenatiosWithFilesTest.php
  * Coverage: unknown
  */
 
