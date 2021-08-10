@@ -102,5 +102,10 @@ class SunhillTestCaseTest extends SunhillTestCase
         $test->test[0]->subtest = 'A';
         $this->assertEquals('A',$this->get_field($test,'test[0]->subtest'));
     }
-    
+   
+    public function testGetTempDir() {
+        exec("rm -rf ".storage_path('/temp'));
+        $this->assertFalse(file_exists(storage_path('/temmp')));
+        $this->assertTrue(file_exists($this->GetTempDir()));
+    }
 }

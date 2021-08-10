@@ -18,6 +18,18 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 abstract class SunhillTestCase extends BaseTestCase {
 
     /**
+     * Return the temporary dir that is used to store test data 
+     * @return unknown
+     */
+    protected function GetTempDir() {
+        //Create the dir if it doesn't exist
+        if (!file_exists(storage_path('/temp'))) {
+            exec("mkdir ".storage_path().'/temp');
+        }
+        return storage_path('/temp');
+    }
+    
+    /**
      * A wrapper for receiving values from an objects
      * If $fieldname is a simple string, $loader->$fieldname is returned
      * If $fieldname is in the form something[index], $loader->something[index] is returned
