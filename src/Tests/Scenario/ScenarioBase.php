@@ -33,6 +33,14 @@ class ScenarioBase {
         $this->test = $test;
     }
  
+    /**
+     * Gets a reference to the test itself
+     * @return The calling test
+     */
+    public function getTest() {
+        return $this->test;
+    }
+    
     protected function WalkRequirements($callback_prefix,$only_if_uninitialized = false) {
         foreach ($this->Requirements as $requirement => $descriptor) {
             $callback = $callback_prefix.$requirement;

@@ -10,6 +10,8 @@ use Tests\CreatesApplication;
 class FakeScenario {
 
     public $flag = 'Empty';
+    public $test;
+    
     
     public function SetupBeforeTests() {
         $this->flag .= 'SetupBeforeTests';
@@ -22,6 +24,7 @@ class FakeScenario {
     }
  
     public function SetTest($test) {
+        $this->test = $test;
         return $this;
     }
 }
@@ -39,6 +42,11 @@ class SunhillScenarioTestCaseTest extends SunhillScenarioTestCase
     
     public function testSetups2() {
         $this->assertEquals('EmptySetupBeforeTestsSetupSetup',$this->GetScenario()->flag);
+    }
+
+    public function testGetTest() {
+        $scenario = $this->GetScenario();
+        $this->assertEquals($this,$scenario->test);
     }
     
 }
