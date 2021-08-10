@@ -28,6 +28,7 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
         if (!empty(static::$ScenarioClass)) {
             $class_name = static::$ScenarioClass;
             static::$Scenario = new $class_name();
+            static::$Scenario->setTest($this);
             static::$Scenario->SetupBeforeTests();
             return static::$Scenario;
         }
