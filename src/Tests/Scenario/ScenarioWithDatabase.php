@@ -22,6 +22,7 @@ trait ScenarioWithDatabase {
      * Creates all the tables that are defined in the GetTableDescriptors function
      */
     protected function SetUpDatabase() {
+        $this->references = [];
         $descriptors = $this->GetTableDescriptors();
         if (empty($descriptors)) {
             return; // Perhaps no new tables have to be created
