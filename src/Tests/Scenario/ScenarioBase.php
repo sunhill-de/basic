@@ -31,6 +31,7 @@ class ScenarioBase {
      */
     public function setTest($test) {
         $this->test = $test;
+        return $this;
     }
  
     /**
