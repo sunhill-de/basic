@@ -42,6 +42,14 @@ class ScenarioWithTablesTest extends SunhillTestCase
    
     use CreatesApplication;
 
+     public function setUp() : void {
+         parent::setUp();
+         DB::statement('drop table if exists testtable;');
+         DB::statement('drop table if exists another;');
+         DB::statement('create table testtable (id int auto_increment primary key,name varchar(100))');
+         DB::statement('create table another (id int auto_increment primary key,reference int,payload varchar(20))');
+     }
+
     public function testGetReferencePass() {
         $test = new ScenarioWithTablesTestScenario();
         $this->setProtectedProperty($test,'references',['TEST'=>1]);
