@@ -23,12 +23,12 @@ class ScenarioDestructiveFeatureTestScenario extends ScenarioBase{
         use ScenarioWithTables;
         
     protected $Requirements = [
-        'Files'=>[
-            'destructive'=>true,
-        ],
         'Dirs'=>[
             'destructive'=>true,
         ],        
+        'Files'=>[
+            'destructive'=>true,
+        ],
         'Links'=>[
             'destructive'=>true,
         ],        
@@ -106,5 +106,7 @@ class ScenarioDestructiveFeatureTest extends SunhillScenarioTestCase
     protected static $ScenarioClass = 'Sunhill\\Basic\\Tests\\Feature\\ScenarioDestructiveFeatureTestScenario'; 
         
     use CreatesApplication;
-                
+    
+    public function testInitialState() {
+    }        
 }
