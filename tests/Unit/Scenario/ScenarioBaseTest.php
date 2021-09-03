@@ -3,7 +3,6 @@
 namespace Sunhill\Basic\Tests\Unit;
 
 use Sunhill\Basic\Tests\SunhillTestCase;
-use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 use Tests\CreatesApplication;
 
