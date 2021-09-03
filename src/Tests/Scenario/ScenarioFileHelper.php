@@ -44,7 +44,7 @@ trait ScenarioFileHelper {
      * @return string
      */
     protected function GetCompletePath(string $subpath) {
-        return $this->GetTarget().$subpath;    
+        return $this->GetTarget().'/'.$subpath;    
     }
     
     /**

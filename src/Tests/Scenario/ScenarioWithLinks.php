@@ -25,7 +25,7 @@ trait ScenarioWithLinks {
     
     protected function SetupLink($link,$target) {
         $link = $this->GetCompletePath($link);
-        if (file_exists($link)) {
+        if (realpath($link)) {
             exec("rm -rf $link");
         }
         if (substr($target,0,2) !== '..') {

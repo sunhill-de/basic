@@ -38,7 +38,7 @@ class ScenarioFileHelperTest extends SunhillTestCase
     public function testGetCompletePath() {
         $test = new ScenarioFileHelpersScenario();
         $this->callProtectedMethod($test,'SetTarget',['/target/dir']);
-        $this->assertEquals('/target/dir/sub/dir',$this->callProtectedMethod($test,'GetCompletePath',['/sub/dir']));
+        $this->assertEquals('/target/dir//sub/dir',$this->callProtectedMethod($test,'GetCompletePath',['/sub/dir']));
     }
     
     public function testClearTarget() {

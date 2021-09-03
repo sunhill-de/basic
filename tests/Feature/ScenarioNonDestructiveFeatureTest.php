@@ -16,26 +16,26 @@ use Tests\CreatesApplication;
 use Illuminate\Support\Facades\DB;
 
 
-class ScenarioDestructiveFeatureTestScenario extends ScenarioBase{
+class ScenarioNonDestructiveFeatureTestScenario extends ScenarioBase{
 
         use ScenarioWithFiles,ScenarioWithDirs,ScenarioWithLinks,
             ScenarioWithDatabase,ScenarioWithTables;
         
     protected $Requirements = [
         'Dirs'=>[
-            'destructive'=>true,
+            'destructive'=>false,
         ],        
         'Files'=>[
-            'destructive'=>true,
+            'destructive'=>false,
         ],
         'Links'=>[
-            'destructive'=>true,
+            'destructive'=>false,
         ],        
         'Database'=>[
-            'destructive'=>true,
+            'destructive'=>false,
         ],        
         'Tables'=>[
-            'destructive'=>true,
+            'destructive'=>false,
         ],        
     ];
         protected function GetFiles() {
@@ -99,15 +99,13 @@ class ScenarioDestructiveFeatureTestScenario extends ScenarioBase{
                 
 }
 
-class ScenarioDestructiveFeatureTest extends SunhillScenarioTestCase
+class ScenarioNonDestructiveFeatureTest extends SunhillScenarioTestCase
 {
-   
-    protected static $ScenarioClass = 'Sunhill\\Basic\\Tests\\Feature\\ScenarioDestructiveFeatureTestScenario'; 
-        
+           
     use CreatesApplication;
     
     protected function GetScenarioClass() {
-        return ScenarioDestructiveFeatureTestScenario::class;
+        return ScenarioNonDestructiveFeatureTestScenario::class;
     }
     
     public function testInitialState() {
@@ -127,27 +125,10 @@ class ScenarioDestructiveFeatureTest extends SunhillScenarioTestCase
     }
     
     public function testRestrore() {
-        $this->assertTrue(file_exists($this->GetTempDir().'/test/subdir'));
-        $this->assertTrue(file_exists($this->GetTempDir().'/test/subdir/test.txt'));
-        $this->assertTrue(file_exists($this->GetTempDir().'/test/subdir/link.txt'));
-        $this->assertDatabaseHas('another',['reference'=>1,'payload'=>'Payload1']);
-    }
-    
-    public function testDestroyForSkip() {
-        exec('rm -rf '.$this->GetTempDir().'/test/subdir');
-        DB::table('another')->where('payload','Payload1')->delete();
-        $this->assertFalse(file_exists($this->GetTempDir().'/test/subdir'));
-        $this->skipRebuild();
-    }
-    
-    public function testDestroyAfterSkip() {
-        exec('rm -rf '.$this->GetTempDir().'/test/subdir');
-        DB::table('another')->where('payload','Payload1')->delete();
         $this->assertFalse(file_exists($this->GetTempDir().'/test/subdir'));
         $this->assertFalse(file_exists($this->GetTempDir().'/test/subdir/test.txt'));
         $this->assertFalse(file_exists($this->GetTempDir().'/test/subdir/link.txt'));
         $this->assertDatabaseMissing('another',['payload'=>'Payload1']);
     }
-    
-    
+        
 }
