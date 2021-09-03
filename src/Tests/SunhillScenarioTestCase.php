@@ -46,9 +46,16 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
         }
     }
     
+    /**
+     * Setup the scenario only if a scenario is defined
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Testing\TestCase::setUp()
+     */
     public function setUp() : void {
         parent::setUp();
-        $this->GetScenario()->SetTest($this)->Setup();
+        if (!empty(static::$ScenarioClass)) {
+            $this->GetScenario()->SetTest($this)->Setup();
+        }
     }
     
 }
