@@ -24,6 +24,8 @@ class ScenarioBase {
     protected $Setups = [
         
     ]; /**<< Stores, what requirements are already setup */
+
+    protected $skipRebuild=false;
     
     /**
      * Sets a reference to the test itself
@@ -71,7 +73,13 @@ class ScenarioBase {
      * This method is called befone any test
      */
     public function Setup() {
-        $this->WalkRequirements('Setup',true);
+        if (!$this->skipRebuild) {
+            $this->WalkRequirements('Setup',true);
+        }
+        $this->skipRebuild = false;
     }
     
+    public function skipRebuild() {
+        $this->skipRebuild = true;
+    }    
 }
