@@ -25,13 +25,11 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
      * @return The created scenario or null if none is defined
      */
     protected function CreateScenario() {
-        if (!empty(static::$ScenarioClass)) {
-            $class_name = static::$ScenarioClass;
+            $class_name = $this->GetScenarioClass();
             static::$Scenario = new $class_name();
             static::$Scenario->setTest($this);
             static::$Scenario->SetupBeforeTests();
             return static::$Scenario;
-        }
     }
     
     /**
@@ -40,6 +38,8 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
      */
     protected function GetScenario() {
         if (empty(static::$Scenario)) {
+            return $this->CreateScenario();
+        } else if (get_class(static::$Scenario) !== $this->GetScenarioClass()){
             return $this->CreateScenario();
         } else {
             return static::$Scenario;
@@ -53,9 +53,7 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
      */
     public function setUp() : void {
         parent::setUp();
-        if (!empty(static::$ScenarioClass)) {
-            $this->GetScenario()->SetTest($this)->Setup();
-        }
+        $this->GetScenario()->SetTest($this)->Setup();
     }
     
     /**
@@ -64,5 +62,7 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
      */
     protected function skipRebuild() {
         $this->GetScenario()->skipRebuild(); // Passed through to the scenario
-    }    
+    }
+    
+    abstract protected function GetScenarioClass();
 }

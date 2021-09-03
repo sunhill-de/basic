@@ -27,8 +27,22 @@ class ScenarioWithFilesTest extends SunhillTestCase
    
     use CreatesApplication;
 
+    public function setUp() : void {
+        parent::setUp();
+        $d = dir($this->GetTempDir());
+        while (false !== ($entry = $d->read())) {
+            if (($entry !== '.') && ($entry !== '..')) {
+                $command = 'rm -rf '.$this->GetTempDir().'/'.$entry;
+                exec("rm -rf ".$this->GetTempDir().'/'.$entry);
+            }
+        }
+        $d->close();
+        exec("mkdir ".$this->GetTempDir().'/subdir');
+    }
+    
     public function testSetupFile() {
-        $test = $this->SetupScenario();
+        $test = new ScenarioWithFilesTestScenario();
+        $test->setTest($this);
         $this->callProtectedMethod($test,'SetupFile',['/test.txt','ABCDEF']);
         $this->assertEquals('ABCDEF',file_get_contents(storage_path('/temp/test.txt')));
     }
@@ -37,7 +51,8 @@ class ScenarioWithFilesTest extends SunhillTestCase
      * This is a feature test
      */
     public function testSetupFiles() {
-        $test = $this->SetupScenario();
+        $test = new ScenarioWithFilesTestScenario();
+        $test->setTest($this);
         exec('mkdir -p '.storage_path().'/temp/test/subdir');
         $this->callProtectedMethod($test,'SetupFiles',[]);
         $this->assertEquals('ABCD',file_get_contents(storage_path('/temp/test.txt')));

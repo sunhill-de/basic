@@ -5,7 +5,7 @@ namespace Sunhill\Basic\Tests\Unit;
 use Sunhill\Basic\Tests\SunhillTestCase;
 use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
-use Sunhill\Basic\Tests\Scenario\ScenarioWithDatabase;
+use Sunhill\Basic\Tests\Scenario\ScenarioWithTables;
 use Tests\CreatesApplication;
 use Illuminate\Support\Facades\DB;
 
@@ -144,14 +144,4 @@ class ScenarioWithTablesTest extends SunhillTestCase
         $this->assertEquals(null,$result->b);
     }
     
-    // This is a feature test
-    public function testSetupDatabase() {
-        DB::statement('drop table if exists testtable;');
-        DB::statement('drop table if exists another;');
-        $test = new ScenarioWithTablesTestScenario();
-        $this->callProtectedMethod($test,'SetupDatabase',[]);
-        $this->callProtectedMethod($test,'SetupTables',[]);
-        $result = DB::table('another')->where('id',2)->first();
-        $this->assertEquals(4,$result->reference);
-    }
 }

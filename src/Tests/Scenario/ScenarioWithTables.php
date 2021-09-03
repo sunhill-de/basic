@@ -19,7 +19,7 @@ trait ScenarioWithTables {
     protected $references = [];
     
     protected function SetupTables() {
-        $descriptors = $this->GetTableContents();
+        $descriptors = $this->GetTables();
         if (empty($descriptors)) {
             return; // Perhaps no tables have to be filled
         }
@@ -35,6 +35,7 @@ trait ScenarioWithTables {
     protected function fillTable(string $tablename,array $descriptor) {
         $fields = $descriptor[0];
         $values = $descriptor[1];
+        DB::statement("truncate $tablename");
         foreach ($values as $reference => $realvalues) {
             $this->insertSingleValue($tablename,$fields,$reference,$realvalues);
         }

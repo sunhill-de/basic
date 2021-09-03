@@ -36,6 +36,7 @@ trait ScenarioWithDatabase {
     
     protected function setupTable(string $tablename,array $descriptor) {
         // Descriptor should be an array of string with the column definition of the table
+        DB::statement("drop table if exists $tablename");
         $query_str = $this->GetQueryStr($tablename,$descriptor);
         DB::statement($query_str);
     }

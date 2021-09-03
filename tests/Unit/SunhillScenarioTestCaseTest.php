@@ -32,9 +32,11 @@ class FakeScenario {
 class SunhillScenarioTestCaseTest extends SunhillScenarioTestCase
 {
    
-    static protected $ScenarioClass = 'Sunhill\\Basic\\Tests\\Unit\\FakeScenario';
-    
     use CreatesApplication;
+    
+    protected function GetScenarioClass() {
+        return FakeScenario::class;
+    }
     
     public function testSetups() {
         $this->assertEquals('EmptySetupBeforeTestsSetup',$this->GetScenario()->flag);

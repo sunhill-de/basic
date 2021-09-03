@@ -2,7 +2,7 @@
 
 namespace Sunhill\Basic\Tests\Feature;
 
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillScenarioTestCase;
 use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 
@@ -14,13 +14,11 @@ use Sunhill\Basic\Tests\Scenario\ScenarioWithTables;
 
 use Tests\CreatesApplication;
 
+
 class ScenarioDestructiveFeatureTestScenario extends ScenarioBase{
 
-        use ScenarioWithFiles;
-        use ScenarioWithDirs;
-        use ScenarioWithLinks;
-        use ScenarioWithDatabase;
-        use ScenarioWithTables;
+        use ScenarioWithFiles,ScenarioWithDirs,ScenarioWithLinks,
+            ScenarioWithDatabase,ScenarioWithTables;
         
     protected $Requirements = [
         'Dirs'=>[
@@ -106,6 +104,10 @@ class ScenarioDestructiveFeatureTest extends SunhillScenarioTestCase
     protected static $ScenarioClass = 'Sunhill\\Basic\\Tests\\Feature\\ScenarioDestructiveFeatureTestScenario'; 
         
     use CreatesApplication;
+    
+    protected function GetScenarioClass() {
+        return ScenarioDestructiveFeatureTestScenario::class;
+    }
     
     public function testInitialState() {
     }        

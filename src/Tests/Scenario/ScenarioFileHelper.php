@@ -12,7 +12,7 @@
 
 namespace Sunhill\Basic\Tests\Scenario;
 
-trait ScenarioFileHelpers {
+trait ScenarioFileHelper {
     
     protected $target; /**<< Stores a prefix for all file dirs */
     
@@ -31,7 +31,11 @@ trait ScenarioFileHelpers {
      * @return unknown
      */
     protected function GetTarget() {
-        return $this->target;
+        if (is_null($this->target)) {
+            return $this->getTest()->GetTempDir();   
+        } else {
+            return $this->target;
+        }
     }
     
     /**
@@ -40,7 +44,7 @@ trait ScenarioFileHelpers {
      * @return string
      */
     protected function GetCompletePath(string $subpath) {
-        return $this->target.$subpath;    
+        return $this->GetTarget().$subpath;    
     }
     
     /**
