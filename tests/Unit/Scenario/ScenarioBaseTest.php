@@ -29,11 +29,11 @@ class ScenarioBaseTestScenario extends ScenarioBase{
     }
     
     protected function SetUpTestDestructiveRequirement($descriptor) {
-        $this->flag .= 'BeforeDestructive';        
+        $this->flag .= 'D';        
     }
     
     protected function SetUpTestUnDestructiveRequirement($descriptor) {
-        $this->flag .= 'BeforeUnDestructive';        
+        $this->flag .= 'U';        
     }
         
 }
@@ -64,7 +64,7 @@ class ScenarioBaseTest extends SunhillTestCase
      */
     public function testSetup($test) {
         $test->Setup();
-        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveBeforeDestructiveBeforeUnDestructive',$test->flag);
+        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveDU',$test->flag);
     }
     
     /**
@@ -73,6 +73,19 @@ class ScenarioBaseTest extends SunhillTestCase
      */
     public function testSetupDouble($test) {
         $test->Setup();
-        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveBeforeDestructiveBeforeUnDestructiveBeforeDestructive',$test->flag);
+        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveDUD',$test->flag);
     }
+    
+    /**
+     * @depends testSetupBeforeAll
+     * @param unknown $test
+     */
+    public function testSkipRebuild($test) {
+        $test->skipRebuild();
+        $test->Setup();
+        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveDUD',$test->flag);
+        $test->Setup();
+        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveDUDD',$test->flag);
+    }
+    
 }
