@@ -58,4 +58,11 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
         }
     }
     
+    /**
+     * If the scenario has destructive parts than the scenario is ordered not to rebuild these parts. This method is needed if
+     * you want to test several tests on a changed scenario
+     */
+    protected function skipRebuild() {
+        $this->GetScenario()->skipRebuild(); // Passed through to the scenario
+    }    
 }

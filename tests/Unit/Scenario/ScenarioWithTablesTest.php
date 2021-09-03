@@ -9,25 +9,11 @@ use Sunhill\Basic\Tests\Scenario\ScenarioWithDatabase;
 use Tests\CreatesApplication;
 use Illuminate\Support\Facades\DB;
 
-class ScenarioWithDatabaseTestScenario extends ScenarioBase{
+class ScenarioWithTablesTestScenario extends ScenarioBase{
 
-        use ScenarioWithDatabase;
+        use ScenarioWithTables;
         
-        function GetTableDescriptors() {
-            return [
-                'testtable'=>[
-                    'id int auto_increment primary key',
-                    'name varchar(100)'
-                ],
-                'another'=>[
-                    'id int auto_increment primary key',
-                    'reference int',
-                    'payload varchar(20)'
-                ]
-            ];
-        }
-        
-        function GetTableContents() {
+        function GetTables() {
             return [
                 'testtable'=>[
                     ['name'],
@@ -51,59 +37,34 @@ class ScenarioWithDatabaseTestScenario extends ScenarioBase{
         
 }
 
-class ScenarioWithDatabaseTest extends SunhillTestCase
+class ScenarioWithTablesTest extends SunhillTestCase
 {
    
     use CreatesApplication;
 
-    public function testSetupDatabaseGetQuerystr() {
-        $test = new ScenarioWithDatabaseTestScenario();
-        $this->assertEquals("create table testtable (id int primary key,payload varchar);",
-                $this->callProtectedMethod($test,'getQueryStr',array('testtable',
-                    ['id int primary key','payload varchar']
-                ))
-            );
-    }
-    
-    public function testSetupDatabaseSetUpTable() {
-        DB::statement('drop table if exists testtable;');
-        $test = new ScenarioWithDatabaseTestScenario();
-        $this->callProtectedMethod($test,'setupTable',array('testtable',
-            ['id int primary key','payload varchar(100)']
-        ));
-        DB::statement('insert into testtable (id,payload) values (1,"test")');
-        $result = DB::table('testtable')->where('id',1)->first();
-        $this->assertEquals('test',$result->payload);
-    }
+     public function setUp() : void {
+         parent::setUp();
+         DB::statement('drop table if exists testtable;');
+         DB::statement('drop table if exists another;');
+         DB::statement('create table testtable (id int auto_increment primary key,name varchar(100))');
+         DB::statement('create table another (id int auto_increment primary key,reference int,payload varchar(20))');
+     }
 
-    public function testSetupDatabaseComplete() {
-        DB::statement('drop table if exists testtable;');
-        DB::statement('drop table if exists another;');
-        $test = new ScenarioWithDatabaseTestScenario();
-        $this->callProtectedMethod($test,'setupDatabase',array());
-        DB::statement('insert into testtable (id,name) values (1,"test")');
-        DB::statement('insert into another (id,reference,payload) values (1,1,"test")');
-        $result = DB::table('testtable')->where('id',1)->first();
-        $this->assertEquals('test',$result->name);
-        $result = DB::table('another')->where('id',1)->first();
-        $this->assertEquals('test',$result->payload);
-    }
-    
     public function testGetReferencePass() {
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->setProtectedProperty($test,'references',['TEST'=>1]);
         $this->assertEquals(1,$this->callProtectedMethod($test,'getReference',['=>TEST']));
     }
 
     public function testGetReferencePassWithArray() {
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->setProtectedProperty($test,'references',['TEST'=>1]);
         $this->assertEquals(1,$this->callProtectedMethod($test,'getReference',['=>TEST->id']));
     }
     
     public function testGetReferenceFail() {
         $this->expectException(\Exception::class);
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->setProtectedProperty($test,'references',['TEST'=>1]);
         $this->assertEquals(1,$this->callProtectedMethod($test,'getReference',['=>NONEXISTING']));
     }
@@ -114,7 +75,7 @@ class ScenarioWithDatabaseTest extends SunhillTestCase
      * @param unknown $expect
      */
     public function testGetInsertQueryStr($values,$expect) {
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->setProtectedProperty($test,'references',['TEST'=>111]);
         $this->assertEquals($expect,$this->callProtectedMethod($test,'getInsertQueryStr',['testtable',['a','b'],$values]));
     }
@@ -130,7 +91,7 @@ class ScenarioWithDatabaseTest extends SunhillTestCase
     public function testInsertSingleValue_simple() {
         DB::statement('drop table if exists testtable;');
         DB::statement('create table testtable (a varchar(2),b varchar(2))');
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->callProtectedMethod($test,'insertSingleValue',['testtable',['a','b'],1,[1,2]]);
         $result = DB::table('testtable')->first();
         $this->assertEquals(1,$result->a);
@@ -140,7 +101,7 @@ class ScenarioWithDatabaseTest extends SunhillTestCase
     public function testInsertSingleValue_withreference() {
         DB::statement('drop table if exists testtable;');
         DB::statement('create table testtable (id int auto_increment primary key,a varchar(2),b varchar(2))');
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->callProtectedMethod($test,'insertSingleValue',['testtable',['a','b'],'TESTINSERT',[1,2]]);
         $result = DB::table('testtable')->first();
         $this->assertEquals(1,$this->getProtectedProperty($test,'references')['TESTINSERT']);
@@ -149,7 +110,7 @@ class ScenarioWithDatabaseTest extends SunhillTestCase
     public function testFillTable() {
         DB::statement('drop table if exists testtable;');
         DB::statement('create table testtable (id int auto_increment primary key,a varchar(2),b varchar(2))');
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->callProtectedMethod($test,'filltable',['testtable',[['a','b'],[
            [1,2],
             'reference'=>[3,4],
@@ -166,7 +127,7 @@ class ScenarioWithDatabaseTest extends SunhillTestCase
     public function testFillTable_withNull() {
         DB::statement('drop table if exists testtable;');
         DB::statement('create table testtable (id int auto_increment primary key,a varchar(2),b int)');
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->callProtectedMethod($test,'filltable',['testtable',[['a','b'],[
             [NULL,2],
             ['A',NULL],
@@ -187,7 +148,7 @@ class ScenarioWithDatabaseTest extends SunhillTestCase
     public function testSetupDatabase() {
         DB::statement('drop table if exists testtable;');
         DB::statement('drop table if exists another;');
-        $test = new ScenarioWithDatabaseTestScenario();
+        $test = new ScenarioWithTablesTestScenario();
         $this->callProtectedMethod($test,'SetupDatabase',[]);
         $this->callProtectedMethod($test,'SetupTables',[]);
         $result = DB::table('another')->where('id',2)->first();

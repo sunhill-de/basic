@@ -3,7 +3,6 @@
 namespace Sunhill\Basic\Tests\Unit;
 
 use Sunhill\Basic\Tests\SunhillTestCase;
-use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 use Tests\CreatesApplication;
 
@@ -21,19 +20,19 @@ class ScenarioBaseTestScenario extends ScenarioBase{
     ];
     
     protected function SetUpBeforeTestsTestDestructiveRequirement($descriptor) {
-        $this->flag .= 'BeforeTestsDestructive';
+        $this->flag .= 'BD';
     }
     
     protected function SetUpBeforeTestsTestUnDestructiveRequirement($descriptor) {
-        $this->flag .= 'BeforeTestsUnDestructive';        
+        $this->flag .= 'BU';        
     }
     
     protected function SetUpTestDestructiveRequirement($descriptor) {
-        $this->flag .= 'BeforeDestructive';        
+        $this->flag .= 'D';        
     }
     
     protected function SetUpTestUnDestructiveRequirement($descriptor) {
-        $this->flag .= 'BeforeUnDestructive';        
+        $this->flag .= 'U';        
     }
         
 }
@@ -55,7 +54,7 @@ class ScenarioBaseTest extends SunhillTestCase
      */
     public function testSetupBeforeTests($test) {
         $test->SetupBeforeTests();
-        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructive',$test->flag);
+        $this->assertEquals('BDBU',$test->flag);
     }
     
     /**
@@ -64,7 +63,7 @@ class ScenarioBaseTest extends SunhillTestCase
      */
     public function testSetup($test) {
         $test->Setup();
-        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveBeforeDestructiveBeforeUnDestructive',$test->flag);
+        $this->assertEquals('BDBUDU',$test->flag);
     }
     
     /**
@@ -73,6 +72,19 @@ class ScenarioBaseTest extends SunhillTestCase
      */
     public function testSetupDouble($test) {
         $test->Setup();
-        $this->assertEquals('BeforeTestsDestructiveBeforeTestsUnDestructiveBeforeDestructiveBeforeUnDestructiveBeforeDestructive',$test->flag);
+        $this->assertEquals('BDBUDUD',$test->flag);
     }
+    
+    /**
+     * @depends testSetupBeforeAll
+     * @param unknown $test
+     */
+    public function testSkipRebuild($test) {
+        $test->skipRebuild();
+        $test->Setup();
+        $this->assertEquals('BDBUDUD',$test->flag);
+        $test->Setup();
+        $this->assertEquals('BDBUDUDD',$test->flag);
+    }
+    
 }
