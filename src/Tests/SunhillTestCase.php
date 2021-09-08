@@ -14,9 +14,20 @@
 namespace Sunhill\Basic\Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
 
 abstract class SunhillTestCase extends BaseTestCase {
 
+    protected function assertDatabaseHasTable(string $table,$message='') {
+        self::assertThat($table, new DatabaseHasTableConstraint(),$message );
+    }
+    
+    protected function assertDatabaseHasNotTable(string $table,$message='') {
+        self::assertThat($table,$this->logicalNot(
+            new DatabaseHasTableConstraint()
+            ),$message );
+    }
+    
     /**
      * Return the temporary dir that is used to store test data 
      * Note: This is public because the scenarios have to access this
