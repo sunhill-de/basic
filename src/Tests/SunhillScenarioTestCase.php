@@ -46,6 +46,11 @@ abstract class SunhillScenarioTestCase extends SunhillTestCase {
         }
     }
     
+    protected function getScenarioValue(string $identifier) 
+    {
+        return $this->GetScenario()->getScenarioValue($identifier);    
+    }
+    
     /**
      * Setup the scenario only if a scenario is defined
      * {@inheritDoc}

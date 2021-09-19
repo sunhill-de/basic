@@ -5,6 +5,7 @@ namespace Sunhill\Basic\Tests\Unit;
 use Sunhill\Basic\Tests\SunhillTestCase;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 use Tests\CreatesApplication;
+use Sunhill\Basic\SunhillException;
 
 class ScenarioBaseTestScenario extends ScenarioBase{
 
@@ -34,7 +35,17 @@ class ScenarioBaseTestScenario extends ScenarioBase{
     protected function SetUpTestUnDestructiveRequirement($descriptor) {
         $this->flag .= 'U';        
     }
-        
+    
+    public function getScenarioValue(string $identifier)
+    {
+        switch ($identifier) {
+            case'test':
+                return 'TEST';
+                break;
+            default:
+                return parent::getScenarioValue($identifier);
+        }
+    }
 }
 
 class ScenarioBaseTest extends SunhillTestCase
@@ -85,6 +96,19 @@ class ScenarioBaseTest extends SunhillTestCase
         $this->assertEquals('BDBUDUD',$test->flag);
         $test->Setup();
         $this->assertEquals('BDBUDUDD',$test->flag);
+    }
+    
+    public function testGetScenarioValuePass() 
+    {
+        $test = new ScenarioBaseTestScenario();
+        $this->assertEquals('TEST',$test->getScenarioValue('test'));
+    }
+    
+    public function testGetScenarioValueFail() 
+    {
+        $test = new ScenarioBaseTestScenario();
+        $this->expectException(SunhillException::class);
+        $test->getScenarioValue('notexisting');
     }
     
 }

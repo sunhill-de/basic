@@ -12,6 +12,8 @@
 
 namespace Sunhill\Basic\Tests\Scenario;
 
+use Sunhill\Basic\SunhillException;
+
 class ScenarioBase {
     
     protected $test; /**<< Stores a back reference to the test */
@@ -72,14 +74,21 @@ class ScenarioBase {
     /**
      * This method is called befone any test
      */
-    public function Setup() {
+    public function Setup() 
+    {
         if (!$this->skipRebuild) {
             $this->WalkRequirements('Setup',true);
         }
         $this->skipRebuild = false;
     }
     
-    public function skipRebuild() {
+    public function skipRebuild() 
+    {
         $this->skipRebuild = true;
-    }    
+    }
+    
+    public function getScenarioValue(string $identifier)
+    {
+        throw new SunhillException("Unknown ScenarioIdentifier '$identifier'");    
+    }
 }
