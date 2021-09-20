@@ -35,10 +35,10 @@ abstract class SunhillTestCase extends BaseTestCase {
      */
     public function GetTempDir() {
         //Create the dir if it doesn't exist
-        if (!file_exists(storage_path('/temp'))) {
-            exec("mkdir ".storage_path().'/temp');
+        if (!file_exists(storage_path('temp'))) {
+            exec("mkdir ".storage_path().'temp');
         }
-        return storage_path('/temp');
+        return storage_path('temp');
     }
     
     /**
