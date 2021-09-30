@@ -106,7 +106,7 @@ class SunhillTestCaseTest extends SunhillTestCase
    
     public function testGetTempDir() {
         exec("rm -rf ".storage_path('/temp'));
-        $this->assertFalse(file_exists(storage_path('/temmp')));
+        $this->assertFalse(file_exists(storage_path('/temp')));
         $this->assertTrue(file_exists($this->GetTempDir()));
     }
     
