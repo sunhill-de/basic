@@ -4,9 +4,9 @@ namespace Sunhill\Basic\Tests\Unit;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Sunhill\Basic\SunhillException;
-use Sunhill\Basic\base;
+use Sunhill\Basic\Base;
 
-class extension extends base {
+class extension extends Base {
 
     private $test=0;
     

@@ -18,12 +18,14 @@ namespace Sunhill\Basic;
  * @author klaus
  *
  */
-class base {
+class Base 
+{
 	
     /**
      * Empty constructur so parent::__construct() always works
      */
-    public function __construct() {        
+    public function __construct() 
+    {        
     }
     
     /**
@@ -33,12 +35,13 @@ class base {
      * @throws SunhillException is throws if no getter is found
      * @return any The value of the variable (return of the getter)
      */
-    public function __get(string $varname) {
+    public function __get(string $varname) 
+    {
 		$method = "get_$varname";
 		if (method_exists($this,$method)) {
 			return $this->$method();
 		} else {
-			throw new SunhillException("Variable '$varname' was not found.");
+			throw new SunhillException(__("Variable ':varname' was not found.",['varname'=>$varname]));
 		}
 	}
 	
@@ -49,12 +52,13 @@ class base {
      * @throws SunhillException Is thrown if there is no setter
      * @return unknown
      */
-	public function __set($varname,$value) {
+	public function __set($varname,$value) 
+	{
 		$method = "set_$varname";
 		if (method_exists($this,$method)) {
 			return $this->$method($value);
 		} else {
-			throw new SunhillException("Variable '$varname' was not found.");
+		    throw new SunhillException(__("Variable ':varname' was not found.",['varname'=>$varname]));
 		}
 	}
 	

@@ -14,7 +14,8 @@ use Sunhill\Basic\Facades\Checks;
 use Sunhill\Basic\Utils\Descriptor;
 use Sunhill\Basic\Checker\CheckException;
 
-class test_checker extends checker {
+class test_checker extends checker 
+{
     
     public function checkSomething() {
         return $this->create_result('OK','Check something');
@@ -22,7 +23,8 @@ class test_checker extends checker {
     
 }
 
-class fail_checker extends checker {
+class fail_checker extends checker 
+{
     
     public function checkSomethingFailing() {
         return $this->create_result('FAILED','Check something failing','Something went wrong');
@@ -34,26 +36,30 @@ class CheckTest extends SunhillTestCase
 
     use CreatesApplication;
     
-    public function testNoCheckerInstalled() {
-        Checks::Purge();
+    public function testNoCheckerInstalled() 
+    {
+        Checks::purge();
         $this->expectException(CheckException::class);
-        Checks::Check();
+        Checks::check();
     }
     
-    public function testInstallChecker() {
-        Checks::Purge();
-        Checks::InstallChecker(test_checker::class);
-        $result = Checks::Check();
+    public function testInstallChecker() 
+    {
+        Checks::purge();
+        Checks::installChecker(test_checker::class);
+        $result = Checks::check();
         $this->assertEquals('OK',$result[0]->result);
         $this->assertEquals('Check something',$result[0]->name);
     }
     
-    public function testCheckFail() {
+    public function testCheckFail() 
+    {
         Checks::Purge();
-        Checks::InstallChecker(test_checker::class);
-        Checks::InstallChecker(fail_checker::class);        
-        $result = Checks::Check();
+        Checks::installChecker(test_checker::class);
+        Checks::installChecker(fail_checker::class);        
+        $result = Checks::check();
         $this->assertEquals('FAILED',$result[1]->result);
         $this->assertEquals('Something went wrong',$result[1]->error);
     }
+    
 }

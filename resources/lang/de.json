@@ -1,6 +1,9 @@
 {
+	"Variable ':varname' was not found.":"Variable ':varname' nicht gefunden.",
 	"Valuechange forbidden by trigger.":"Änderung des Wertes durch Trigger verboten",
 	"Autoadd forbidden.":"Automatisches Hinzufügen verboten.",
 	"Unknown method ':name'":"Unbekannte Methode ':name'",
-	"No checkers installed":"Keine Checker installiert"
+	"No checkers installed":"Keine Checker installiert",
+	"Performing checks...":"Führe Checks aus...",
+	"Checks finished":"Chekcs beendet"
 }

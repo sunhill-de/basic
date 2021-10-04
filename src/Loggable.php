@@ -1,6 +1,6 @@
 <?php
 /**
- * @file loggabe.php
+ * @file Loggabe.php
  * Provides a class that provides an abstraction of logging methods
  * Lang en
  * Reviewstatus: 2020-11-02
@@ -45,7 +45,7 @@ define('LL_EMERGENCY',-8);
  * These messages receive a string of the log message
  * @author klaus
  */
-class loggable extends base {
+class Loggable extends Base {
 	/**
 	 * Saves the command object for displaying things on the screen 
 	 */
@@ -66,9 +66,10 @@ class loggable extends base {
     /**
      * Setter for the Loglevel
      * @param int $loglevel
-     * @return loggable
+     * @return Loggable
      */
-    public function set_loglevel(int $loglevel) {
+    public function setLoglevel(int $loglevel): Loggable 
+    {
         $this->loglevel = $loglevel;
         return $this;
     }
@@ -77,12 +78,15 @@ class loggable extends base {
      * Getter for the Loglevel
      * @return int
      */
-    public function get_loglevel() {
+    public function getLoglevel(): int 
+    {
         return $this->loglevel;
     }
     
-    public function set_command(Command $command) {
+    public function setCommand(Command $command): Loggable 
+    {
         $this->command = $command;
+        return $this;
     }
     
     /**
@@ -90,7 +94,8 @@ class loggable extends base {
      * @param int $displaylevel
      * @return loggable
      */
-    public function set_displaylevel(int $displaylevel) {
+    public function setDisplaylevel(int $displaylevel): Loggable 
+    {
         $this->displaylevel = $displaylevel;
         return $this;
     }
@@ -99,12 +104,14 @@ class loggable extends base {
      * Getter for the Displaylevel
      * @return int
      */
-    public function get_displaylevel() {
+    public function getDisplaylevel(): int 
+    {
         return $this->displaylevel;
     }
     
-    private function process_message(int $level,string $message) {
-        if ($this->check_loglevel($level)) {
+    private function processMessage(int $level, string $message): void 
+    {
+        if ($this->checkLoglevel($level)) {
             switch ($level) {
                 case LL_DEBUG:
                     Log::debug($message); break;
@@ -124,7 +131,7 @@ class loggable extends base {
                     Log::emergency($message); break;
             }
         }
-        if ($this->check_displaylevel($level) && !is_null($this->command)) {
+        if ($this->checkDisplaylevel($level) && !is_null($this->command)) {
             if ($level > LL_WARNING) {
                 $this->command->info($message);
             } else {
@@ -137,64 +144,72 @@ class loggable extends base {
      * Enters a debug message into the log if the loglevel is on LL_DEBUG
      * @param string $message
      */
-    protected function debug(string $message) {
-        $this->process_message(LL_DEBUG,$message);
+    protected function debug(string $message): void 
+    {
+        $this->processMessage(LL_DEBUG,$message);
     }
     
     /**
      * Enters a info message into the log if the loglevel is on LL_INFO or lower
      * @param string $message
      */
-    protected function info(string $message) {
-        $this->process_message(LL_INFO,$message);
+    protected function info(string $message): void
+    {
+        $this->processMessage(LL_INFO,$message);
     }
     
     /**
      * Enters a notice message into the log if the loglevel is on LL_NOTICE or lower
      * @param string $message
      */
-    protected function notice(string $message) {
-        $this->process_message(LL_NOTICE,$message);
+    protected function notice(string $message): void
+    {
+        $this->processMessage(LL_NOTICE,$message);
     }
     
     /**
      * Enters a warning message into the log if the loglevel is on LL_WARNING or lower
      * @param string $message
      */
-    protected function warning(string $message) {
-        $this->process_message(LL_WARNING,$message);
+    protected function warning(string $message): void 
+    {
+        $this->processMessage(LL_WARNING,$message);
     }
     
     /**
      * Enters an error message into the log if the loglevel is on LL_ERROR or lower
      * @param string $message
      */
-    protected function error(string $message) {
-        $this->process_message(LL_ERROR,$message);
+    protected function error(string $message): void 
+    {
+        $this->processMessage(LL_ERROR,$message);
     }
     
     /**
      * Enters a critical message into the log if the loglevel is on LL_CRITICAL or lower
      * @param string $message
      */
-    protected function critical(string $message) {
-        $this->process_message(LL_CRITICAL,$message);
+    protected function critical(string $message): void 
+    {
+        $this->processMessage(LL_CRITICAL,$message);
     }
     
     /**
      * Enters a alert message into the log if the loglevel is on LL_ALERT or lower
      * @param string $message
      */
-    protected function alert(string $message) {
-        $this->process_message(LL_ALERT,$message);
+    protected function alert(string $message): void 
+    {
+        $this->processMessage(LL_ALERT,$message);
     }
     
     /**
      * Enters an emergency message into the log if the loglevel is on LL_EMERGENCY or lower
      * @param string $message
      */
-    protected function emergency(string $message) {
-        $this->process_message(LL_EMERGENCY,$message);
+    protected function emergency(string $message): void 
+    {
+        $this->processMessage(LL_EMERGENCY,$message);
     }
     
     /**
@@ -203,7 +218,8 @@ class loggable extends base {
      * @param int $requested
      * @return boolean
      */
-    private function check_loglevel(int $requested) {
+    private function checkLoglevel(int $requested): bool 
+    {
         if ($requested >= $this->loglevel) {
             return true;
         } else {
@@ -217,7 +233,8 @@ class loggable extends base {
      * @param int $requested
      * @return boolean
      */
-    private function check_displaylevel(int $requested) {
+    private function checkDisplaylevel(int $requested): bool 
+    {
         if ($requested >= $this->displaylevel) {
             return true;
         } else {

@@ -13,7 +13,7 @@ class Check extends Command
     
     public function handle()
     {
-        $this->info('Performing checks...');
+        $this->info(__('Performing checks...',[]));
         $result = Checks::Check();
         foreach ($result as $single_result) {
             if ($single_result->result == 'OK') {
@@ -23,6 +23,6 @@ class Check extends Command
                 $this->error('  '.$single_result->error);
             }
         }
-        $this->info('Checks finished');
+        $this->info(__('Checks finished',[]));
     }
 }

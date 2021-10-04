@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file descriptor.php
+ * @file Descriptor.php
  * Provides a class that bundles information for easier access
  * Lang en
  * Reviewstatus: 2020-08-06
@@ -13,7 +13,7 @@
 namespace Sunhill\Basic\Utils;
 
 use Sunhill\Basic\SunhillException;
-use Sunhill\Basic\loggable;
+use Sunhill\Basic\Loggable;
 
 class DescriptorException extends SunhillException {}
 
@@ -23,7 +23,7 @@ class DescriptorException extends SunhillException {}
  * @author Klaus
  *        
  */
-class descriptor extends loggable implements \Iterator
+class Descriptor extends Loggable implements \Iterator
 {
 
     private $fields = [];
@@ -36,7 +36,8 @@ class descriptor extends loggable implements \Iterator
     
     protected $disable_triggers = false;
     
-    public function __construct() {
+    public function __construct() 
+    {
         $save_autoadd = $this->autoadd;
         $save_triggers = $this->disable_triggers;
         $this->autoadd = true;
@@ -46,7 +47,8 @@ class descriptor extends loggable implements \Iterator
         $this->disable_triggers = $save_triggers;
     }
     
-    protected function setup_fields() {
+    protected function setupFields() 
+    {
         
     }
     
@@ -56,30 +58,32 @@ class descriptor extends loggable implements \Iterator
      * @param unknown $name
      * @param unknown $value
      */
-    public function __set($name, $value)
+    public function __set(string $name, $value)
     {
-        $this->check_autoadd($name,$value);
+        $this->checkAutoadd($name,$value);
         if (!isset($this->fields[$name])) {
             $oldvalue = null;   
         } else {
             $oldvalue = $this->fields[$name];
         }
         if ($oldvalue !== $value) {
-            if (!$this->check_changing_trigger($name,$oldvalue,$value)) {
+            if (!$this->checkChangingTrigger($name,$oldvalue,$value)) {
                 throw new DescriptorException(__("Valuechange forbidden by trigger."));
             }
             $this->fields[$name] = $value;
-            $this->check_changed_trigger($name,$oldvalue,$value);            
+            $this->checkChangedTrigger($name,$oldvalue,$value);            
         }
     }
 
-    private function check_autoadd($name,$value) {
+    private function checkAutoadd(string $name,$value) 
+    {
         if (!isset($this->fields[$name]) && !$this->autoadd) {
             throw new DescriptorException(__("Autoadd forbidden."));
         }        
     }
     
-    private function check_changing_trigger($name,$from,$to) {
+    private function checkChangingTrigger(string $name,$from,$to) 
+    {
         if ($this->disable_triggers) {
             return true;
         }
@@ -93,7 +97,8 @@ class descriptor extends loggable implements \Iterator
         return true;
     }
     
-    private function check_changed_trigger($name,$from,$to) {
+    private function checkChangedTrigger(string $name,$from,$to) 
+    {
         if ($this->disable_triggers) {
             return true;
         }
@@ -112,7 +117,7 @@ class descriptor extends loggable implements \Iterator
      * @param unknown $name
      * @return mixed|NULL
      */
-    public function &__get($name)
+    public function &__get(string $name)
     {
         if (isset($this->fields[$name])) {
             return $this->fields[$name];
@@ -126,7 +131,8 @@ class descriptor extends loggable implements \Iterator
      * Checks, if the descriptor has the field with the name $name
      * @param string $name
      */
-    public function is_defined(string $name) {
+    public function isDefined(string $name) 
+    {
         return isset($this->fields[$name]);
     }
     
@@ -161,7 +167,7 @@ class descriptor extends loggable implements \Iterator
      *
      * @return boolean|\Manager\Utils\string
      */
-    public function has_error()
+    public function hasError()
     {
         return $this->error;
     }
@@ -171,7 +177,7 @@ class descriptor extends loggable implements \Iterator
      *
      * @param string $message
      */
-    public function set_error(string $message)
+    public function setError(string $message)
     {
         $this->error = $message;
     }
@@ -229,21 +235,24 @@ class descriptor extends loggable implements \Iterator
     /**
      * Assertion that the $key exists
      */
-    public function assertHasKey(string $key) {
+    public function assertHasKey(string $key) 
+    {
         return $this->is_defined($key);
     }
     
     /**
      * Assertion that the key exists and is value $value
      */
-    public function assertKeyIs(string $key,$value) {
+    public function assertKeyIs(string $key,$value) 
+    {
         return $this->is_defined($key) && ($this->$key == $value);
     }
     
     /**
      * Assertion that the key exists, is an array and has the value $test
      */
-    public function assertKeyHas(string $key,$test) {
+    public function assertKeyHas(string $key,$test) 
+    {
         if (!$this->is_defined($key) || !is_array($this->$key)) {
             return false;
         }
