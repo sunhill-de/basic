@@ -9,9 +9,9 @@ namespace Sunhill\Basic\Tests\Unit;
  */
 use Sunhill\Basic\Tests\SunhillTestCase;
 use Sunhill\Basic\Tests\Unit\CreatesApplication;
-use Sunhill\Basic\Checker\checker;
+use Sunhill\Basic\Checker\Checker;
 use Sunhill\Basic\Facades\Checks;
-use Sunhill\Basic\Utils\descriptor;
+use Sunhill\Basic\Utils\Descriptor;
 use Sunhill\Basic\Checker\CheckException;
 
 class test_checker extends checker {

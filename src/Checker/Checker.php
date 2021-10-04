@@ -3,7 +3,7 @@
  * @file checker.php
  * Provides a class for checks that are called by the Check facade
  * Lang en
- * Reviewstatus: 2020-12-20
+ * Reviewstatus: 2021-10-04
  * Localization: nothing to translate
  * Documentation: complete
  * Tests: BasicTest.php
@@ -16,7 +16,8 @@ namespace Sunhill\Basic\Checker;
 use Sunhill\Basic\Loggable;
 use Sunhill\Basic\Utils\Descriptor;
 
-class Checker extends Loggable {
+class Checker extends Loggable 
+{
     
     /**
      * Creates a checker result and passes it to an descriptor

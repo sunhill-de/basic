@@ -1,6 +1,6 @@
 <?php
 /**
- * @file checks.php
+ * @file Checks.php
  * Provides a class that performs checks
  * Lang en
  * Reviewstatus: 2020-12-20
@@ -20,45 +20,50 @@ use Sunhill\Basic\Checker\checker;
  The checks itself are performed by a checker class. This checker class has to be installed via the InstallChecker method 
  first. The checks are performed by calling the Checks method 
  */
-class checks extends loggable {
+class Checks extends Loggable 
+{
     
     protected $checker_classes = [];
    
     /**
      * This method cleans all checks so that after it there is no check installed
      */
-    public function Purge() {
+    public function purge(): void 
+    {
         $this->checker_classes = [];
     }
     
     /**
-     Every package of the sunhill framework can install one ore more checker classes. Normally this is done in the Service Routine of laravel
-     @param $class_name The fully qualified class name of the checker class.
+     * Every package of the sunhill framework can install one ore more checker classes. Normally this is done in the Service Routine of laravel
+     * @param $class_name The fully qualified class name of the checker class.
      */
-    public function InstallChecker(string $class_name) {
+    public function installChecker(string $class_name): void 
+    {
         $this->checker_classes[] = $class_name;    
     }
     
     /**
-     Runs all checks in all installed checker classes 
-     @throws CheckException if check() is called with no installed checker_class
-     @returns array of string The check resuls in an array.
+     * Runs all checks in all installed checker classes 
+     * @throws CheckException if check() is called with no installed checker_class
+     * @returns array of string The check resuls in an array.
      */
-    public function Check() {
+    public function check(): array 
+    {
         if (empty($this->checker_classes)) {
             throw new CheckException(__("No checkers installed"));
         }
-        return $this->walk_checkers();
+        return $this->walkCheckers();
     }
     
     /**
      Runs through each installed checker class and calls perform_checks()
      */
-    protected function walk_checkers() {
+    protected function walkCheckers(): array 
+    {
         $result = [];
         foreach ($this->checker_classes as $checker_class) {
             $checker = new $checker_class();
-            $result = array_merge($result,$this->perform_checks($checker));
+            $result = array_merge($result,$this->performChecks($checker));
         }
         return $result;
     }
@@ -66,7 +71,8 @@ class checks extends loggable {
     /**
      Runs through each method that starts with check and calls it
      */
-    protected function perform_checks(checker $checker) {
+    protected function performChecks(checker $checker): array 
+    {
         $result = [];
         $methods = get_class_methods($checker);
         foreach ($methods as $method) {
