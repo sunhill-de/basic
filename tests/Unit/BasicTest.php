@@ -10,11 +10,11 @@ class extension extends Base {
 
     private $test=0;
     
-    public function set_test($value) {
+    public function setTest($value) {
         $this->test = $value;
     }
     
-    public function get_test() {
+    public function getTest() {
         return $this->test;
     }
 }

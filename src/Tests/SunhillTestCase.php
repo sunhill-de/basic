@@ -51,7 +51,7 @@ abstract class SunhillTestCase extends BaseTestCase {
      * @param unknown $fieldname
      * @return unknown
      */
-    protected function get_field($loader,$fieldname) {
+    protected function getField($loader,$fieldname) {
         $match = '';
         if (preg_match('/(?P<name>\w+)\[(?P<index>\w+)\]->(?P<subfield>\w+)/',$fieldname,$match)) {
             $name = $match['name'];

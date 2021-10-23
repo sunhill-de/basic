@@ -20,19 +20,19 @@ class ScenarioBaseTestScenario extends ScenarioBase{
         ],        
     ];
     
-    protected function SetUpBeforeTestsTestDestructiveRequirement($descriptor) {
+    protected function SetUpBeforeTestsTestDestructiveRequirement($Descriptor) {
         $this->flag .= 'BD';
     }
     
-    protected function SetUpBeforeTestsTestUnDestructiveRequirement($descriptor) {
+    protected function SetUpBeforeTestsTestUnDestructiveRequirement($Descriptor) {
         $this->flag .= 'BU';        
     }
     
-    protected function SetUpTestDestructiveRequirement($descriptor) {
+    protected function SetUpTestDestructiveRequirement($Descriptor) {
         $this->flag .= 'D';        
     }
     
-    protected function SetUpTestUnDestructiveRequirement($descriptor) {
+    protected function SetUpTestUnDestructiveRequirement($Descriptor) {
         $this->flag .= 'U';        
     }
     

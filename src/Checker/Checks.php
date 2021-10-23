@@ -11,7 +11,7 @@
  */
 namespace Sunhill\Basic\Checker;
 
-use Sunhill\Basic\loggable;
+use Sunhill\Basic\Loggable;
 use Sunhill\Basic\Checker\CheckException;
 use Sunhill\Basic\Checker\checker;
 
@@ -56,7 +56,7 @@ class Checks extends Loggable
     }
     
     /**
-     Runs through each installed checker class and calls perform_checks()
+     Runs through each installed checker class and calls perfOrmChecks()
      */
     protected function walkCheckers(): array 
     {

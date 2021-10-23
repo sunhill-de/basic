@@ -42,7 +42,7 @@ class Descriptor extends Loggable implements \Iterator
         $save_triggers = $this->disable_triggers;
         $this->autoadd = true;
         $this->disable_triggers = true;
-        $this->setup_fields();
+        $this->setupFields();
         $this->autoadd = $save_autoadd;
         $this->disable_triggers = $save_triggers;
     }
@@ -89,7 +89,7 @@ class Descriptor extends Loggable implements \Iterator
         }
         $method_name = $name.'_changing';
         if (method_exists($this,$method_name)) {
-            $diff = new descriptor();
+            $diff = new Descriptor();
             $diff->from = $from;
             $diff->to = $to;
             return $this->$method_name($diff);
@@ -104,7 +104,7 @@ class Descriptor extends Loggable implements \Iterator
         }
         $method_name = $name.'_changed';
         if (method_exists($this,$method_name)) {
-            $diff = new descriptor();
+            $diff = new Descriptor();
             $diff->from = $from;
             $diff->to = $to;
             $this->$method_name($diff);
@@ -122,13 +122,13 @@ class Descriptor extends Loggable implements \Iterator
         if (isset($this->fields[$name])) {
             return $this->fields[$name];
         } else {
-            $this->fields[$name] = new descriptor();
+            $this->fields[$name] = new Descriptor();
             return $this->fields[$name];
         }
     }
 
     /**
-     * Checks, if the descriptor has the field with the name $name
+     * Checks, if the Descriptor has the field with the name $name
      * @param string $name
      */
     public function isDefined(string $name) 
@@ -153,7 +153,7 @@ class Descriptor extends Loggable implements \Iterator
     }
 
     /**
-     * Returns true, if the descriptor is empty
+     * Returns true, if the Descriptor is empty
      *
      * @return bool
      */
@@ -237,7 +237,7 @@ class Descriptor extends Loggable implements \Iterator
      */
     public function assertHasKey(string $key) 
     {
-        return $this->is_defined($key);
+        return $this->isDefined($key);
     }
     
     /**
@@ -245,7 +245,7 @@ class Descriptor extends Loggable implements \Iterator
      */
     public function assertKeyIs(string $key,$value) 
     {
-        return $this->is_defined($key) && ($this->$key == $value);
+        return $this->isDefined($key) && ($this->$key == $value);
     }
     
     /**
@@ -253,7 +253,7 @@ class Descriptor extends Loggable implements \Iterator
      */
     public function assertKeyHas(string $key,$test) 
     {
-        if (!$this->is_defined($key) || !is_array($this->$key)) {
+        if (!$this->isDefined($key) || !is_array($this->$key)) {
             return false;
         }
         foreach ($this->$key as $value) {

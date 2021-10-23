@@ -8,23 +8,23 @@ namespace Sunhill\Basic\Tests\Unit;
  * dependencies: FilemanagerTestCase
  */
 use Sunhill\Basic\Tests\SunhillTestCase;
-use Sunhill\Basic\Utils\descriptor;
+use Sunhill\Basic\Utils\Descriptor;
 use Sunhill\Basic\Utils\DescriptorException;
 use Sunhill\Basic\Tests\Unit\CreatesApplication;
 
-class test_descriptor extends descriptor {
+class test_descriptor extends Descriptor {
     
     
     protected $autoadd = false;
     
     public $flag = '';
     
-    protected function setup_fields() {
+    protected function setupFields() {
         $this->test = 'ABC';
         $this->test2 = 'DEF';
     }
     
-    protected function test_changing(descriptor $diff) {
+    protected function test_changing(Descriptor $diff) {
         if ($diff->from == 'ABC') {
             return true;
         } else {
@@ -32,7 +32,7 @@ class test_descriptor extends descriptor {
         }
     }
     
-    protected function test_changed(descriptor $diff) {
+    protected function test_changed(Descriptor $diff) {
         $this->flag = $diff->from."=>".$diff->to;    
     }
 }
@@ -44,29 +44,29 @@ class UtilDescriptorTest extends SunhillTestCase
     
     public function testSetGet()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->test = 'ABC';
         $this->assertEquals('ABC', $test->test);
     }
 
     public function testNotSet()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $this->assertTrue($test->notset->empty());
     }
 
     public function testEmpty()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $this->assertTrue($test->empty());
-        $this->assertFalse($test->has_error());
+        $this->assertFalse($test->hasError());
     }
 
     public function testError()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->set_error('There was an error');
-        $this->assertEquals('There was an error', $test->has_error());
+        $this->assertEquals('There was an error', $test->hasError());
     }
 
     /**
@@ -75,7 +75,7 @@ class UtilDescriptorTest extends SunhillTestCase
      */
     public function testDoubleDescriptor()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->test1 = 'ABC';
         $test->test2->test = 'ABC';
         $this->assertEquals($test->test1, $test->test2->test);
@@ -83,7 +83,7 @@ class UtilDescriptorTest extends SunhillTestCase
 
     public function testForeach()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->test1 = 'ABC';
         $test->test2 = 'BCE';
         $test->anothertest = 123;
@@ -96,21 +96,21 @@ class UtilDescriptorTest extends SunhillTestCase
 
     public function testGet()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->test1 = 'ABC';
         $this->assertEquals('ABC', $test->get_test1());
     }
 
     public function testSet()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->set_test1('ABC');
         $this->assertEquals('ABC', $test->test1);
     }
 
     public function testCascadingSet()
     {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->set_test1('ABC')->set_test2('DEF');
         $this->assertEquals('DEF', $test->test2);
     }
@@ -118,7 +118,7 @@ class UtilDescriptorTest extends SunhillTestCase
     public function testRaiseException()
     {
         $this->expectException(DescriptorException::class);
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->not_existing_function();
     }
     
@@ -151,21 +151,21 @@ class UtilDescriptorTest extends SunhillTestCase
     }
     
     public function testHasKey() {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->abc = 'abc';
-        $this->assertTrue($test->is_defined('abc'));
-        $this->assertFalse($test->is_defined('notdefined'));
+        $this->assertTrue($test->isDefined('abc'));
+        $this->assertFalse($test->isDefined('notdefined'));
     }
     
     public function testAssertHasKey() {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->abc = 'abc';
         $this->assertTrue($test->assertHasKey('abc'));
         $this->assertFalse($test->assertHasKey('notdefined'));    
     }
         
     public function testAssertKeyIs() {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->abc = 'abc';
         $this->assertTrue($test->assertKeyIs('abc','abc'));
         $this->assertFalse($test->assertKeyIs('notdefined','abc'));    
@@ -173,7 +173,7 @@ class UtilDescriptorTest extends SunhillTestCase
     }
     
     public function testAssertKeyHas() {
-        $test = new descriptor();
+        $test = new Descriptor();
         $test->abc = ['abc','def','ghi'];
         $this->assertTrue($test->assertKeyHas('abc','abc'));
         $this->assertFalse($test->assertKeyHas('notdefined','abc'));    

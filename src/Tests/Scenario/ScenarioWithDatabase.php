@@ -29,28 +29,28 @@ trait ScenarioWithDatabase {
             // We expect an array as a function result, if not this is an error
             throw \Exception("GetDatabase doesn't return an array");
         }
-        foreach ($descriptors as $table => $descriptor) {
-            $this->setupTable($table,$descriptor);
+        foreach ($descriptors as $table => $Descriptor) {
+            $this->setupTable($table,$Descriptor);
         }
     }
     
-    protected function setupTable(string $tablename,array $descriptor) {
+    protected function setupTable(string $tablename,array $Descriptor) {
         // Descriptor should be an array of string with the column definition of the table
         DB::statement("drop table if exists $tablename");
-        $query_str = $this->GetQueryStr($tablename,$descriptor);
+        $query_str = $this->GetQueryStr($tablename,$Descriptor);
         DB::statement($query_str);
     }
     
     /**
      * Create the mysql query string that creates the given table
      * @param string $tablename
-     * @param array $descriptor
+     * @param array $Descriptor
      * @return string
      */
-    protected function getQueryStr(string $tablename,array $descriptor) {
+    protected function getQueryStr(string $tablename,array $Descriptor) {
         $query_str = "create table $tablename (";
         $first = true;
-        foreach ($descriptor as $line) {
+        foreach ($Descriptor as $line) {
             $query_str .= ($first?'':',').$line;
             $first = false;
         }

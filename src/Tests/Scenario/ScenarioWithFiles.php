@@ -18,8 +18,8 @@ trait ScenarioWithFiles {
     
     protected function SetUpFiles() {
         $descriptors = $this->GetFiles();
-        foreach ($descriptors as $descriptor) {
-           $this->SetupFile($descriptor['path'],$descriptor['content']); 
+        foreach ($descriptors as $Descriptor) {
+           $this->SetupFile($Descriptor['path'],$Descriptor['content']); 
         }
     }
     

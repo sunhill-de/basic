@@ -21,7 +21,7 @@ class ScenarioBase {
     protected $Requirements = [
             
     ]; /**<< Stores the requirements for this scenario as an associative array. The key defines the requirement base name
-    and the value is the descriptor of the requirement */
+    and the value is the Descriptor of the requirement */
 
     protected $Setups = [
         
@@ -47,15 +47,15 @@ class ScenarioBase {
     }
     
     protected function WalkRequirements($callback_prefix,$only_if_uninitialized = false) {
-        foreach ($this->Requirements as $requirement => $descriptor) {
+        foreach ($this->Requirements as $requirement => $Descriptor) {
             $callback = $callback_prefix.$requirement;
             if (method_exists($this,$callback)) {
                 // Call this callback only if $only_if_uninitialied is false or the requirement
                 // is not initializes yet
                 if (!$only_if_uninitialized || !in_array($requirement,$this->Setups)) {
-                    $this->$callback($descriptor);
+                    $this->$callback($Descriptor);
                     if ($only_if_uninitialized) {
-                        if (!$descriptor['destructive']) {
+                        if (!$Descriptor['destructive']) {
                             $this->Setups[] = $requirement;
                         }
                     }

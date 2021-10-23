@@ -37,7 +37,7 @@ class Base
      */
     public function __get(string $varname) 
     {
-		$method = "get_$varname";
+		$method = "get".ucfirst($varname);
 		if (method_exists($this,$method)) {
 			return $this->$method();
 		} else {
@@ -52,9 +52,9 @@ class Base
      * @throws SunhillException Is thrown if there is no setter
      * @return unknown
      */
-	public function __set($varname,$value) 
+	public function __set(string $varname, $value) 
 	{
-		$method = "set_$varname";
+		$method = "set".ucfirst($varname);
 		if (method_exists($this,$method)) {
 			return $this->$method($value);
 		} else {

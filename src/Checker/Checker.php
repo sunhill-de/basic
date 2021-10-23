@@ -20,15 +20,15 @@ class Checker extends Loggable
 {
     
     /**
-     * Creates a checker result and passes it to an descriptor
+     * Creates a checker result and passes it to an Descriptor
      * @param string $status
      * @param string $test_name
      * @param string $error_message
-     * @return descriptor
+     * @return Descriptor
      */
-    protected function createResult(string $status, string $test_name, string $error_message = ''): descriptor 
+    protected function createResult(string $status, string $test_name, string $error_message = ''): Descriptor 
     {
-        $result = new descriptor();
+        $result = new Descriptor();
         $result->result = $status;
         $result->name = $test_name;
         $result->error = $error_message;

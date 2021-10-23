@@ -18,7 +18,7 @@ class test_checker extends checker
 {
     
     public function checkSomething() {
-        return $this->create_result('OK','Check something');
+        return $this->createResult('OK','Check something');
     }
     
 }
@@ -27,7 +27,7 @@ class fail_checker extends checker
 {
     
     public function checkSomethingFailing() {
-        return $this->create_result('FAILED','Check something failing','Something went wrong');
+        return $this->createResult('FAILED','Check something failing','Something went wrong');
     }
 }
 

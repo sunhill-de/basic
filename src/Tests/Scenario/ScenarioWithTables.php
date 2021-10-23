@@ -27,14 +27,14 @@ trait ScenarioWithTables {
             // We expect an array as a function result, if not this is an error
             throw \Exception("GetTableContents doesn't return an array");
         }
-        foreach ($descriptors as $table => $descriptor) {
-            $this->fillTable($table,$descriptor);
+        foreach ($descriptors as $table => $Descriptor) {
+            $this->fillTable($table,$Descriptor);
         }        
     }
     
-    protected function fillTable(string $tablename,array $descriptor) {
-        $fields = $descriptor[0];
-        $values = $descriptor[1];
+    protected function fillTable(string $tablename,array $Descriptor) {
+        $fields = $Descriptor[0];
+        $values = $Descriptor[1];
         DB::statement("truncate $tablename");
         foreach ($values as $reference => $realvalues) {
             $this->insertSingleValue($tablename,$fields,$reference,$realvalues);

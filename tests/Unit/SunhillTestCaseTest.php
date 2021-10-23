@@ -75,33 +75,33 @@ class SunhillTestCaseTest extends SunhillTestCase
     public function testGetFieldSimple() {
         $test = new \StdClass();
         $test->test = 'A';
-        $this->assertEquals('A',$this->get_field($test,'test'));
+        $this->assertEquals('A',$this->getField($test,'test'));
     }
     
     public function testGetFieldArray1() {
         $test = new \StdClass();
         $test->test = ['A','B','C'];
-        $this->assertEquals('A',$this->get_field($test,'test[0]'));
+        $this->assertEquals('A',$this->getField($test,'test[0]'));
     }
     
     public function testGetFieldArray2() {
         $test = new \StdClass();
         $test->test = ['A'=>1,'B'=>2,'C'=>3];
-        $this->assertEquals(1,$this->get_field($test,'test[A]'));
+        $this->assertEquals(1,$this->getField($test,'test[A]'));
     }
         
     public function testGetFieldObject() {
         $test = new \StdClass();
         $test->test = new \StdClass();
         $test->test->subtest = 'A';
-        $this->assertEquals('A',$this->get_field($test,'test->subtest'));
+        $this->assertEquals('A',$this->getField($test,'test->subtest'));
     }
     
     public function testGetArrayFieldObject() {
         $test = new \StdClass();
         $test->test = [new \StdClass()];
         $test->test[0]->subtest = 'A';
-        $this->assertEquals('A',$this->get_field($test,'test[0]->subtest'));
+        $this->assertEquals('A',$this->getField($test,'test[0]->subtest'));
     }
    
     public function testGetTempDir() {

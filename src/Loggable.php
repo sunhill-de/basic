@@ -92,7 +92,7 @@ class Loggable extends Base {
     /**
      * Setter for the display level
      * @param int $displaylevel
-     * @return loggable
+     * @return Loggable
      */
     public function setDisplaylevel(int $displaylevel): Loggable 
     {
