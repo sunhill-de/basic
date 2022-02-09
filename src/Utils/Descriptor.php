@@ -12,10 +12,7 @@
  */
 namespace Sunhill\Basic\Utils;
 
-use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Loggable;
-
-class DescriptorException extends SunhillException {}
 
 /**
  * A class that bundles informations in a class like style
