@@ -47,23 +47,23 @@ class Checks extends Loggable
      * @throws CheckException if check() is called with no installed checker_class
      * @returns array of string The check resuls in an array.
      */
-    public function check(): array 
+    public function check(bool $repair=false): array 
     {
         if (empty($this->checker_classes)) {
             throw new CheckException(__("No checkers installed"));
         }
-        return $this->walkCheckers();
+        return $this->walkCheckers($repair);
     }
     
     /**
      Runs through each installed checker class and calls perfOrmChecks()
      */
-    protected function walkCheckers(): array 
+    protected function walkCheckers(bool $repair): array 
     {
         $result = [];
         foreach ($this->checker_classes as $checker_class) {
             $checker = new $checker_class();
-            $result = array_merge($result,$this->performChecks($checker));
+            $result = array_merge($result,$this->performChecks($checker,$repair));
         }
         return $result;
     }
@@ -71,13 +71,13 @@ class Checks extends Loggable
     /**
      Runs through each method that starts with check and calls it
      */
-    protected function performChecks(checker $checker): array 
+    protected function performChecks(checker $checker, bool $repair): array 
     {
         $result = [];
         $methods = get_class_methods($checker);
         foreach ($methods as $method) {
             if (substr($method,0,5) == 'check') {
-                $result[] = $checker->$method();
+                $result[] = $checker->$method($repair);
             }
         }
         return $result;

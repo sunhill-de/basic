@@ -17,7 +17,7 @@ use Sunhill\Basic\Checker\CheckException;
 class test_checker extends checker 
 {
     
-    public function checkSomething() {
+    public function checkSomething(bool $repair) {
         return $this->createResult('OK','Check something');
     }
     
@@ -26,7 +26,7 @@ class test_checker extends checker
 class fail_checker extends checker 
 {
     
-    public function checkSomethingFailing() {
+    public function checkSomethingFailing(bool $repair) {
         return $this->createResult('FAILED','Check something failing','Something went wrong');
     }
 }
