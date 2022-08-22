@@ -35,7 +35,7 @@ abstract class SearchBase
     protected function addWhere(string $connection, string $variable, $relation=null, $condition=null): SearchBase
     {
         // Handle omitted parameters
-        if (is_null($condition) && (is_null($relation)) {
+        if (is_null($condition) && (is_null($relation))) {
           $relation = '=';
           $condition = true;
         }  else if(is_null($condition)) {
@@ -66,10 +66,22 @@ abstract class SearchBase
         return $this->addWhere('or',$variable,$relation,$condition);
     }
   
+    /**
+     * Adds an order clause
+     * The result should be ordered by $variable. if $ascending is set, in an ascending order if not in an descending order
+     * @param $variable: What variable should be ordered
+     * @param $ascending: bool=true: In which direction should be ordered
+     */
     public function orderBy(string $variable, bool $ascending = true): SearchBase
     {
     }
-            
+    
+    /**
+     * Sets an limit and/or an offset to the query
+     * If $limit is omitted, $offset is taken as limit
+     * @param $offset int: The offset of the query
+     * @param $limit int|null: how many entries should be returned
+     */
     public function limit(int $offset, $limit = null): SearchBase
     {        
       if (is_null($limit)) {
@@ -77,5 +89,5 @@ abstract class SearchBase
           $offset = 0;
       }  
     }
-            
+   
 }  
