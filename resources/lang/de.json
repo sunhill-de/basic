@@ -5,5 +5,8 @@
 	"Unknown method ':name'":"Unbekannte Methode ':name'",
 	"No checkers installed":"Keine Checker installiert",
 	"Performing checks...":"Führe Checks aus...",
-	"Checks finished":"Chekcs beendet"
+	"Checks finished":"Chekcs beendet",
+	
+	"The connection must be 'and' or 'or', ':connection' given.":"Die Verknüpfung muss 'and' oder 'or' sein, ':connection' gesetzt.",
+	"The variable ':variable' is not valid.":"Die Variable ':variable' ist ungültig."
 }
