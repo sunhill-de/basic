@@ -21,7 +21,7 @@ namespace Sunhill\Basic\Search;
  * @author lokal
  *
  */
-abstract class QueryAtom 
+class QueryAtom extends \StdClass
 {
  
     /**
@@ -52,15 +52,6 @@ abstract class QueryAtom
     
     protected $connection;
     
-    /**
-     * Creates a new QueryAtom and passes the parent query over
-     * @param QueryBuilder $parent_query
-     */
-    public function __construct(SearchBase $parent_query) 
-    {
-        $this->parent_query = $parent_query;
-    }
-    
     public function setPrev(QueryAtom $prev) 
     {
         $this->prev = $prev;
@@ -74,7 +65,7 @@ abstract class QueryAtom
     public function link(QueryAtom $next, string $connection = 'and') 
     {
         if ($this->isSingleton()) {
-            throw new QueryException("A singleton query atom can't be linked.");
+            throw new QueryException(__("A singleton query atom can't be linked."));
         }
         if (is_null($this->next)) {
             $this->next = $next;
