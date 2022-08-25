@@ -88,7 +88,25 @@ abstract class SearchBase
             }
         }
     }
-    
+
+    /**
+     * Creates a queryAtom, fills it with the given values and returns it
+     * @param $params : array an associative array with the needed key/value pairs
+     * @param $singleton bool is this atom a singleton
+     * @return QueryAtom the built atom
+     */
+    protected function getAtom(array $params, bool $singleton = false): QueryAtom
+    {
+      $result = new QueryAtom();
+      $result->setSingleton($singleton);
+      
+      foreach ($params as $key => $value) {
+        $result->$key = $value;
+      }
+      
+      return $result;
+    }
+  
     /**
      * Checks if the given variable $variable is valid and return a representation of this variable or null if not valid.
      * @param $variable string: The name of the variable
@@ -96,6 +114,16 @@ abstract class SearchBase
      * variable string itself. This representation is then processed
      */
     abstract protected function checkVariable(string $variable);
+  
+    /**
+     * Adds a target to the query
+     * @param $name string name of the target
+     * @return SearchBase reference to $this
+     */
+    protected function addTaregt(string $name): SearchBase
+    {
+        $this->setQueryPart('target',$this->getQueryAtom(['name'=>$name],false));      
+    }
   
     /**
      * Adds a condition to the query. 
@@ -126,6 +154,8 @@ abstract class SearchBase
         if ($variable_obj = $this->checkVariable($variable)) {
             throw new \Exception(__("The variable ':variable' is not valid.",['variable'=>$variable]));
         }  
+      
+        $this->setQueryPart('where',$this->getQueryAtom(['variable'=>$variable,'relation'=>$relation,'condition'=>$condition],false),$connection);
         return $this;    
     }
   
@@ -174,7 +204,56 @@ abstract class SearchBase
       if (is_null($limit)) {
           $limit = $offset;
           $offset = 0;
-      }  
+      } 
+      $this->setQueryPart('limit',$this->getAtom(['offset'=>$offset,'limit'=>$limit],true));
     }
    
+    abstract protected function assembleQuery();
+    abstract protected function executeQuery($assembled_query);
+    abstract protected function processResult($result);
+  
+    protected function getResult()
+    {      
+      return $this->processResult($this->executeQuery($this->assembleQuery()));      
+    }
+  
+    /**
+     * Return all results of this query
+     */
+    public function get()
+    {
+      $this->addTarget('get');
+      return $this->getResult();
+    }  
+  
+    /**
+     * Returns the first result of this query or raises an exception if none exists
+     */
+    public function first()
+    {
+      if ($result = $this->firstIfExists())
+      {
+        return $result;
+      }
+      throw new QueryException(__("first() expects at least one result. Non returned"));
+    }  
+  
+    /**
+     * returns the first result of this query or null if none exists
+     */
+    public function firstIfExists()
+    {
+      $this->addTarget('first');
+      return $this->getResult();
+    }  
+  
+    /**
+     * Returns the numer of results of this query 
+     * @return int
+     */
+    public function count()
+    {
+      $this->addTarget('count');
+      return $this->getResult();
+    }  
 }  
