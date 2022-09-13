@@ -161,6 +161,16 @@ abstract class SearchBase
      */
     public function orderBy(string $variable, bool $ascending = true): SearchBase
     {
+        // Check variable
+        if ($variable_obj = $this->checkVariable($variable)) {
+            throw new \Exception(__("The variable ':variable' is not valid.",['variable'=>$variable]));
+        }
+        
+        $atom = new QueryAtomOrder($this);
+        $atom->setVariable($varible)->setAscending($ascending);
+        $this->setQueryPart('order',$atom);
+        
+        return $this;
     }
     
     /**
@@ -174,7 +184,8 @@ abstract class SearchBase
       if (is_null($limit)) {
           $limit = $offset;
           $offset = 0;
-      }  
+      }
+      return $this;
     }
    
 }  
