@@ -8,5 +8,6 @@
 	"Checks finished":"Chekcs beendet",
 	
 	"The connection must be 'and' or 'or', ':connection' given.":"Die Verknüpfung muss 'and' oder 'or' sein, ':connection' gesetzt.",
-	"The variable ':variable' is not valid.":"Die Variable ':variable' ist ungültig."
+	"The variable ':variable' is not valid.":"Die Variable ':variable' ist ungültig.",
+	"first() expects at least one result. Non returned":"first() erwartet mindestens ein Ergebnis, leeres Ergenis erhalten."
 }
