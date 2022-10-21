@@ -17,8 +17,9 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
 use Tests\CreatesApplication;
 
-abstract class SunhillTestCase extends BaseTestCase {
+abstract class SunhillAppTestCase extends BaseTestCase {
 
     use SunhillTrait;
     
+    use CreatesApplication;
 }

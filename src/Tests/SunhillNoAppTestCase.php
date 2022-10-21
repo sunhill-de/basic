@@ -13,12 +13,10 @@
 
 namespace Sunhill\Basic\Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
-use Tests\CreatesApplication;
+use PHPUnit\Framework\TestCase;
 
-abstract class SunhillTestCase extends BaseTestCase {
+abstract class SunhillNoAppTestCase extends TestCase {
 
     use SunhillTrait;
-    
+        
 }
