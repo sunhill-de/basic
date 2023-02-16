@@ -2,8 +2,10 @@
 
 namespace Sunhill\Basic\Tests;
 
+use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
+
 trait SunhillTrait {
-    
+        
     protected function assertDatabaseHasTable(string $table,$message='') {
         self::assertThat($table, new DatabaseHasTableConstraint(),$message );
     }

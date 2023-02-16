@@ -33,7 +33,7 @@ class DatabaseHasTableConstraint extends Constraint {
      * @see \PHPUnit\Framework\Constraint\Constraint::matches()
      */
     public function matches($other) : bool {
-        $tables = DB::select(DB::raw('SHOW TABLES LIKE "'.$other.'"'));
+        $tables = DB::select('SHOW TABLES LIKE "'.$other.'"');
         return !empty($tables);
     }
     
