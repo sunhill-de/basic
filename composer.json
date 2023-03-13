@@ -8,6 +8,12 @@
 			"email" : "klaus@dimde.info"
 		}
 	],
+	"require":{
+		"laravel/framework" : "^9.2"
+	},
+	"require-dev":{
+		 "phpunit/phpunit" : "^9.5.10"
+	},
 	"minimum-stability" : "dev",
 	"autoload" : {
 		"psr-4" : {
