@@ -5,16 +5,13 @@
  */
 namespace Sunhill\Files\Tests\Unit\Constraints;
 
-use Illuminate\Foundation\Testing\TestCase;
 use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Illuminate\Support\Facades\DB;
-use Tests\CreatesApplication;
 
-class DatabaseHasTableConstraintTest extends TestCase
+class DatabaseHasTableConstraintTest extends SunhillOrchestraTestCase
 {
-
-    use CreatesApplication;
-    
+   
     public function testDatabaseHasTableFail() {
        DB::statement('drop table if exists testtable');
        $constraint = new DatabaseHasTableConstraint();

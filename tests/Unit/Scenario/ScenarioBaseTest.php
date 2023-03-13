@@ -2,7 +2,7 @@
 
 namespace Sunhill\Basic\Tests\Unit;
 
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 use Tests\CreatesApplication;
 use Sunhill\Basic\SunhillException;
@@ -48,11 +48,9 @@ class ScenarioBaseTestScenario extends ScenarioBase{
     }
 }
 
-class ScenarioBaseTest extends SunhillTestCase
+class ScenarioBaseTest extends SunhillOrchestraTestCase
 {
    
-    use CreatesApplication;
-
     public function testSetupBeforeAll() {
         $test = new ScenarioBaseTestScenario();
         $this->assertEquals('',$test->flag);

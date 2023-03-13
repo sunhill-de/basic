@@ -7,8 +7,7 @@ namespace Sunhill\Basic\Tests\Unit;
  * lang: en
  * dependencies: FilemanagerTestCase
  */
-use Sunhill\Basic\Tests\SunhillTestCase;
-use Sunhill\Basic\Tests\Unit\CreatesApplication;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\Checker\Checker;
 use Sunhill\Basic\Facades\Checks;
 use Sunhill\Basic\Utils\Descriptor;
@@ -31,11 +30,9 @@ class fail_checker extends checker
     }
 }
 
-class CheckTest extends SunhillTestCase
+class CheckTest extends SunhillOrchestraTestCase
 {
 
-    use CreatesApplication;
-    
     public function testNoCheckerInstalled() 
     {
         Checks::purge();

@@ -2,9 +2,9 @@
 
 namespace Sunhill\Basic\Tests\Unit;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Base;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 
 class extension extends Base {
 
@@ -19,9 +19,8 @@ class extension extends Base {
     }
 }
 
-class BasicTest extends BaseTestCase
+class BasicTest extends SunhillOrchestraTestCase
 {
-    use CreatesApplication;
     
     public function testExceptionExists() {
         $this->expectException(SunhillException::class);

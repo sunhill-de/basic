@@ -2,7 +2,7 @@
 
 namespace Sunhill\Basic\Tests\Unit;
 
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 use Sunhill\Basic\Tests\Scenario\ScenarioWithDirs;
@@ -22,11 +22,9 @@ class ScenarioWithDirsTestScenario extends ScenarioBase{
                 
 }
 
-class ScenarioWithDirsTest extends SunhillTestCase
+class ScenarioWithDirsTest extends SunhillOrchestraTestCase
 {
    
-    use CreatesApplication;
-
     public function setUp() : void {
         parent::setUp();
         $d = dir($this->GetTempDir());

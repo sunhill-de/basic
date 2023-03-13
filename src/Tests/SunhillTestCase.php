@@ -1,13 +1,13 @@
 <?php
 /**
- * @file SunhillTestCasee.php
+ * @file SunhillOrchestraTestCasee.php
  * Provides a common basic test for the sunhill project. It expands the laravel basic test for some 
  * helper methods (like accessing protected methods and properties)
  * Lang en
  * Reviewstatus: 2020-18-11
  * Localization: incomplete
  * Documentation: complete
- * Tests: tests\Unit\SunhillTestCaseTest.php
+ * Tests: tests\Unit\SunhillOrchestraTestCaseTest.php
  * Coverage: unknown
  */
 
@@ -17,7 +17,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
 use Tests\CreatesApplication;
 
-abstract class SunhillTestCase extends BaseTestCase {
+abstract class SunhillOrchestraTestCase extends BaseTestCase {
 
     use SunhillTrait;
     

@@ -32,8 +32,6 @@ class FakeScenario {
 class SunhillScenarioTestCaseTest extends SunhillScenarioTestCase
 {
    
-    use CreatesApplication;
-    
     protected function GetScenarioClass() {
         return FakeScenario::class;
     }

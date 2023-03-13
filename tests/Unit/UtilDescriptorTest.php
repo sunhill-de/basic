@@ -7,7 +7,7 @@ namespace Sunhill\Basic\Tests\Unit;
  * lang: en
  * dependencies: FilemanagerTestCase
  */
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\Utils\Descriptor;
 use Sunhill\Basic\Utils\DescriptorException;
 use Sunhill\Basic\Tests\Unit\CreatesApplication;
@@ -37,11 +37,9 @@ class test_descriptor extends Descriptor {
     }
 }
 
-class UtilDescriptorTest extends SunhillTestCase
+class UtilDescriptorTest extends SunhillOrchestraTestCase
 {
 
-    use CreatesApplication;
-    
     public function testSetGet()
     {
         $test = new Descriptor();

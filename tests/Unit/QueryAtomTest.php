@@ -2,7 +2,7 @@
 
 namespace Sunhill\ORM\Tests\Unit\Search;
 
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\Search\SearchBase;
 use Sunhill\Basic\Search\QueryAtom;
 use Sunhill\Basic\Search\QueryException;
@@ -34,11 +34,25 @@ class testSearch extends SearchBase
     {
         return $variable;
     }
+    
+    protected function executeQuery($assembled_query)
+    {
+        
+    }
+    
+    protected function processResult($result)
+    {
+        
+    }
+    
+    protected function assembleQuery()
+    {
+        
+    }
 }
 
-class QueryAtomTest extends SunhillTestCase
+class QueryAtomTest extends SunhillOrchestraTestCase
 {
-    use CreatesApplication;
     
     public function testLinking1() {
         $dummy = new testSearch();

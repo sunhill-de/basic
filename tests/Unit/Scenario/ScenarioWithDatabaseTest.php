@@ -2,7 +2,7 @@
 
 namespace Sunhill\Basic\Tests\Unit;
 
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 use Sunhill\Basic\Tests\Scenario\ScenarioWithDatabase;
@@ -29,11 +29,9 @@ class ScenarioWithDatabaseTestScenario extends ScenarioBase{
                 
 }
 
-class ScenarioWithDatabaseTest extends SunhillTestCase
+class ScenarioWithDatabaseTest extends SunhillOrchestraTestCase
 {
    
-    use CreatesApplication;
-
     public function setUp() : void {
         parent::setUp();
         DB::statement('drop table if exists testtable;');

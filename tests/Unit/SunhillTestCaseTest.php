@@ -2,13 +2,13 @@
 
 namespace Sunhill\Basic\Tests\Unit;
 
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\base;
 use Tests\CreatesApplication;
 use Illuminate\Support\Facades\DB;
 
-class SunhillTestCaseTestClass {
+class SunhillOrchestraTestCaseTestClass {
 
     protected $protectedValue = 'A';
     
@@ -21,29 +21,27 @@ class SunhillTestCaseTestClass {
     }
 }
 
-class SunhillTestCaseTest extends SunhillTestCase
+class SunhillTestCaseTest extends SunhillOrchestraTestCase
 {
    
-    use CreatesApplication;
-    
     public function testNullTest() {
-        $test = new SunhillTestCaseTestClass();
+        $test = new SunhillOrchestraTestCaseTestClass();
         $this->assertEquals('A',$test->GetValue());
     }
     
     public function testSetProtectedProperty() {
-        $test = new SunhillTestCaseTestClass();
+        $test = new SunhillOrchestraTestCaseTestClass();
         $this->setProtectedProperty($test,'protectedValue','B');
         $this->assertEquals('B',$test->GetValue());
     }
     
     public function testGetProtectedProperty() {
-        $test = new SunhillTestCaseTestClass();
+        $test = new SunhillOrchestraTestCaseTestClass();
         $this->assertEquals('A',$this->getProtectedProperty($test,'protectedValue'));        
     }
     
     public function testCallProtectedMethod() {
-        $test = new SunhillTestCaseTestClass();
+        $test = new SunhillOrchestraTestCaseTestClass();
         $this->invokeMethod($test,'SetValue',['B']);
         $this->assertEquals('B',$test->GetValue());
     }

@@ -2,7 +2,7 @@
 
 namespace Sunhill\Basic\Tests\Unit;
 
-use Sunhill\Basic\Tests\SunhillTestCase;
+use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 use Sunhill\Basic\SunhillException;
 use Sunhill\Basic\Tests\Scenario\ScenarioBase;
 use Sunhill\Basic\Tests\Scenario\ScenarioFileHelper;
@@ -13,11 +13,9 @@ class ScenarioFileHelpersScenario extends ScenarioBase{
     use ScenarioFileHelper;
 }
 
-class ScenarioFileHelperTest extends SunhillTestCase
+class ScenarioFileHelperTest extends SunhillOrchestraTestCase
 {
    
-    use CreatesApplication;
-
     /**
      * Depends on a functioning SetTarget and ClearTarget
      * @return \Sunhill\Basic\Tests\Unit\ScenarioFileHelpersScenario

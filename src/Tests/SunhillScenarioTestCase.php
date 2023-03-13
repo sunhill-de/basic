@@ -14,7 +14,7 @@ namespace Sunhill\Basic\Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-abstract class SunhillScenarioTestCase extends SunhillTestCase {
+abstract class SunhillScenarioTestCase extends SunhillOrchestraTestCase {
 
     protected static $ScenarioClass = ''; /**<< Here the class name of the scenario should be entered **/
     
