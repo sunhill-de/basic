@@ -3,11 +3,11 @@
  * @file Loggabe.php
  * Provides a class that provides an abstraction of logging methods
  * Lang en
- * Reviewstatus: 2020-11-02
+ * Reviewstatus: 2023-03-14
  * Localization: complete
  * Documentation: complete
- * Tests: LoggableTest.php
- * Coverage: unknown
+ * Tests: Unit/Basic/LoggableTest.php
+ * Coverage: 27.45% (2023-03-14)
  */
 
 namespace Sunhill\Basic;
@@ -131,11 +131,15 @@ class Loggable extends Base {
                     Log::emergency($message); break;
             }
         }
-        if ($this->checkDisplaylevel($level) && !is_null($this->command)) {
-            if ($level > LL_WARNING) {
-                $this->command->info($message);
+        if ($this->checkDisplaylevel($level)) {
+            if (!is_null($this->command)) {
+                if ($level > LL_WARNING) {
+                    $this->command->info($message);
+                } else {
+                    $this->command->error($message);
+                }
             } else {
-                $this->command->error($message);
+                echo $message;
             }
         }             
     }

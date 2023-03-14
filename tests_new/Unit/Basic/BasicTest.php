@@ -38,4 +38,10 @@ class BasicTest extends SunhillOrchestraTestCase
         $test = new extension();
         $test->notexisting = 2;
     }
+    
+    public function testException2() {
+        $this->expectException(SunhillException::class);
+        $test = new extension();
+        $a = $test->notexisting;        
+    }
 }

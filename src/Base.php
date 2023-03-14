@@ -3,11 +3,11 @@
  * @file base.php
  * Provides a common basic class for all sunhill project classes
  * Lang en
- * Reviewstatus: 2020-10-07
+ * Reviewstatus: 2023-03-14
  * Localization: incomplete
  * Documentation: complete
- * Tests: BasicTest.php
- * Coverage: unknown
+ * Tests: Unit/Basic/BasicTest.php
+ * Coverage: 100% (2023-03-14)
  */
 
 namespace Sunhill\Basic;
