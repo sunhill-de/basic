@@ -8,22 +8,18 @@
 			"email" : "klaus@dimde.info"
 		}
 	],
-	"require":{
+	"require" : {
 		"laravel/framework" : "^9.2"
 	},
-	"require-dev":{
-		 "phpunit/phpunit" : "^9.5.10",
-		"orchestra/testbench": "7.x-dev"
+	"require-dev" : {
+		"phpunit/phpunit" : "^9.5.10",
+		"orchestra/testbench" : "7.x-dev"
 	},
 	"minimum-stability" : "dev",
 	"autoload" : {
 		"psr-4" : {
-			"Sunhill\\Basic\\Test\\" : [
-				"tests"
-			],
-			"Sunhill\\Basic\\Tests\\" : [
-				"tests"
-			],
+			"Sunhill\\Basic\\Test\\" : "tests",
+			"Sunhill\\Basic\\Tests\\" : "tests",
 			"Sunhill\\Basic\\" : "src"
 		}
 	},
@@ -31,7 +27,10 @@
 		"laravel" : {
 			"providers" : [
 				"Sunhill\\Basic\\SunhillBasicServiceProvider"
-			]
+			],
+		"aliases": {
+			"Checks": "Sunhill\\Basic\\Facades\\Checks"
+		}	
 		}
 	}
 }

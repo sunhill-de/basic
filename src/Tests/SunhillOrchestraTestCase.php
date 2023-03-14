@@ -15,16 +15,11 @@ class SunhillOrchestraTestCase extends TestCase
         parent::setUp();
     }
     
-    protected function getPackageProvider($app)
+    protected function getPackageProviders($app)
     {
         return [
             SunhillBasicServiceProvider::class,
         ];
-    }
-    
-    protected function getEnvironmentSetUp($app)
-    {
-        
     }
     
 }

@@ -35,7 +35,11 @@ trait ScenarioWithTables {
     protected function fillTable(string $tablename,array $Descriptor) {
         $fields = $Descriptor[0];
         $values = $Descriptor[1];
-        DB::statement("truncate $tablename");
+        try {
+            DB::table($tablename)->truncate();
+        } catch (\Exception $e) {
+            
+        }
         foreach ($values as $reference => $realvalues) {
             $this->insertSingleValue($tablename,$fields,$reference,$realvalues);
         }

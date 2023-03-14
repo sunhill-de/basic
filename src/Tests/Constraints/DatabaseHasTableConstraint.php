@@ -17,7 +17,7 @@
 namespace Sunhill\Basic\Tests\Constraints;
 
 use PHPUnit\Framework\Constraint\Constraint;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * The HasLinkConstraint class is an extension to the FileConstraint which is in turn an extension to phpunits 
@@ -33,8 +33,9 @@ class DatabaseHasTableConstraint extends Constraint {
      * @see \PHPUnit\Framework\Constraint\Constraint::matches()
      */
     public function matches($other) : bool {
-        $tables = DB::select('SHOW TABLES LIKE "'.$other.'"');
-        return !empty($tables);
+        return Schema::hasTable($other);
+/*        $tables = DB::select('SHOW TABLES LIKE "'.$other.'"');
+        return !empty($tables); */
     }
     
     /**
