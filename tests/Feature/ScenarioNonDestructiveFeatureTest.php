@@ -102,8 +102,6 @@ class ScenarioNonDestructiveFeatureTestScenario extends ScenarioBase{
 class ScenarioNonDestructiveFeatureTest extends SunhillScenarioTestCase
 {
            
-    use CreatesApplication;
-    
     protected function GetScenarioClass() {
         return ScenarioNonDestructiveFeatureTestScenario::class;
     }

@@ -104,8 +104,6 @@ class ScenarioDestructiveFeatureTest extends SunhillScenarioTestCase
    
     protected static $ScenarioClass = 'Sunhill\\Basic\\Tests\\Feature\\ScenarioDestructiveFeatureTestScenario'; 
         
-    use CreatesApplication;
-    
     protected function GetScenarioClass() {
         return ScenarioDestructiveFeatureTestScenario::class;
     }
