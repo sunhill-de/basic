@@ -7,8 +7,8 @@
  * Reviewstatus: 2020-08-06
  * Localization: complete
  * Documentation: complete
- * Tests: Unit/UtilDescriptorTest.php
- * Coverage: unknown
+ * Tests: Unit/Utils/UtilDescriptorTest.php
+ * Coverage: 98.46% (2023-03-14)
  */
 namespace Sunhill\Basic\Utils;
 
