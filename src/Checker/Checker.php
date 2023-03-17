@@ -1,12 +1,13 @@
 <?php
 /**
  * @file checker.php
- * Provides a class for checks that are called by the Check facade
+ * A Checker is a single entity. It contains at least one checkXXXX method. Each of which is
+ * called by the Checks manager.
  * Lang en
  * Reviewstatus: 2021-10-04
  * Localization: nothing to translate
  * Documentation: complete
- * Tests: BasicTest.php
+ * Tests: Unit/Checker/CheckerTest.php
  * Coverage: unknown
  * PSR-State: complete
  */
@@ -20,19 +21,84 @@ class Checker extends Loggable
 {
     
     /**
-     * Creates a checker result and passes it to an Descriptor
-     * @param string $status
-     * @param string $test_name
-     * @param string $error_message
-     * @return Descriptor
+     * Stores the result of the last check 
+     * @var string
      */
-    protected function createResult(string $status, string $test_name, string $error_message = ''): Descriptor 
+    protected string $last_result = '';
+    
+    /**
+     * Stores the message of the last failure
+     * @var string
+     */
+    protected string $last_message = '';
+    
+    /**
+     * The check was passed
+     * @test Unit/Checker/CheckerTest::testPass()
+     */
+    protected function pass()
     {
-        $result = new Descriptor();
-        $result->result = $status;
-        $result->name = $test_name;
-        $result->error = $error_message;
-        return $result;
-        
+        $this->last_result = 'passed';
     }
+    
+    /**
+     * The check failed with the given error
+     * @param string $message
+     * @test Unit/Checker/CheckerTest::testFailure()
+     */
+    protected function fail(string $message)
+    {
+        $this->last_result = 'failed';
+        $this->last_message = $message;
+        throw new CheckException("Check failed");
+    }
+    
+    /**
+     * The check failed with the given error but was repaired
+     * @param string $message
+     * @test Unit/Checker/CheckerTest::testRepair()
+     */
+    protected function repair(string $message)
+    {
+        $this->last_result = 'repaired';
+        $this->last_message = $message;
+        throw new CheckException("Check failed and repaired");
+    }
+    
+    /**
+     * The check failed and was not repairable
+     * @param string $message
+     * @test Unit/Checker/CheckerTest::testUnrepairable()
+     */
+    protected function unrepairable(string $message)
+    {
+        $this->last_result = 'unrepairable';
+        $this->last_message = $message;
+        throw new CheckException("Check failed was not repairable");        
+    }
+    
+    /**
+     * Getter for $last_result
+     * @return string
+     * @test Unit/Checker/CheckerTest::testFailure()
+     * @test Unit/Checker/CheckerTest::testRepair()
+     * @test Unit/Checker/CheckerTest::testUnrepairable()
+     */
+    public function getLastResult(): string
+    {
+        return $this->last_result;
+    }
+    
+    /**
+     * Getter for $last_message
+     * @return string
+     * @test Unit/Checker/CheckerTest::testFailure()
+     * @test Unit/Checker/CheckerTest::testRepair()
+     * @test Unit/Checker/CheckerTest::testUnrepairable()
+     */
+    public function getLastMessage(): string
+    {
+        return $this->last_message;    
+    }
+    
 }

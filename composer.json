@@ -18,8 +18,7 @@
 	"minimum-stability" : "dev",
 	"autoload" : {
 		"psr-4" : {
-			"Sunhill\\Basic\\Test\\" : "tests",
-			"Sunhill\\Basic\\Tests\\" : "tests",
+			"Sunhill\\Basic\\Tests\\" : "tests/",
 			"Sunhill\\Basic\\" : "src"
 		}
 	},
