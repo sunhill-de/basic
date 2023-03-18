@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Tests: src/Checker/Checks
+ */
 namespace Sunhill\Basic\Tests\Unit\Checker;
 
 use Sunhill\Basic\Checker\Checks;
@@ -9,6 +12,9 @@ use Sunhill\Basic\Tests\SunhillOrchestraTestCase;
 class ChecksTest extends SunhillOrchestraTestCase
 {
 
+    /**
+     * Tests: installChecker(), purge()
+     */
     public function testInstallChecker()
     {
         $test = new Checks();
@@ -23,6 +29,7 @@ class ChecksTest extends SunhillOrchestraTestCase
      * @dataProvider ReturnProvider
      * @param unknown $varname
      * @param unknown $methodname
+     * Tests: getTestsPerformed(), getTestsPassed(), getTestsFailed(), getTests
      */
     public function testReturnTestsPerformed($varname, $methodname)
     {
