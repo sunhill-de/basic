@@ -209,22 +209,7 @@ class Checks extends Loggable
         return $this->messages;
     }
     
-    /**
-     Runs through each method that starts with check and calls it
-     */
-    protected function performChecks(checker $checker, bool $repair, $callback): array 
-    {
-        $result = [];
-        $methods = get_class_methods($checker);
-        foreach ($methods as $method) {
-            if (substr($method,0,5) == 'check') {
-                $this->performSingleCheck($checker, $method, $repair, $callback);
-            }
-        }
-        return $result;
-    }
-        
-    /**
+     /**
      * Just calls the three single tasks
      * @param checker $checker
      * @param string $method
