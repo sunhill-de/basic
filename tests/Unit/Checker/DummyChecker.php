@@ -29,4 +29,8 @@ class DummyChecker extends Checker
         $this->unrepairable("UNREPAIRABLE");
     }
     
+    public function dummyMethod()
+    {
+        
+    }
 }

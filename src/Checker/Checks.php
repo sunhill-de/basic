@@ -30,6 +30,12 @@ class Checks extends Loggable
     protected $checker_classes = [];
    
     /**
+     * Stores the number of tests that are avaiable 
+     * @var integer
+     */
+    protected int $total_tests = 0;
+    
+    /**
      * Stores the number of tests totally performed by this instance
      * @var integer
      */
@@ -66,6 +72,7 @@ class Checks extends Loggable
      * Runs all checks in all installed checker classes 
      * @throws CheckException if check() is called with no installed checker_class
      * @returns array of string The check resuls in an array.
+     * Test: testRunChecks
      */
     public function check(bool $repair=false, $callback = null): array 
     {
@@ -73,10 +80,20 @@ class Checks extends Loggable
             throw new CheckException(__("No checkers installed"));
         }
         $this->initializeChecks();
-        $this->walkCheckers($repair, $callback);
+        $checks = $this->collectChecks();
+        $this->walkChecks($checks, $repair, $callback);
         return $this->messages;
     }
 
+    /**
+     * Return the total number of tests
+     * @return int
+     */
+    public function getTotalTests(): int
+    {
+        return $this->total_tests;     
+    }
+    
     /**
      * Returns the total number of tests that where performed
      * @return int
@@ -132,18 +149,64 @@ class Checks extends Loggable
         $this->tests_unrepairable = 0;
         $this->messages = [];        
     }
-        
+    
     /**
-     Runs through each installed checker class and calls perfOrmChecks()
+     * Creates a collection entry for the checker list
+     * @param checker $checker
+     * @param string $method
+     * @return \StdClass
+     * Test testCreateArrayEntry
      */
-    protected function walkCheckers(bool $repair, $callback): array 
+    protected function createArrayEntry(checker $checker, string $method): \StdClass
+    {
+        $result = new \StdClass();
+        $result->checker = $checker;
+        $result->method = $method;
+        return $result;
+    }
+    
+    /**
+     * Collects all check method from the given checker class
+     * @param checker $checker
+     * @return array
+     * Test: testCollectChecksFromChecker
+     */
+    protected function collectChecksFromChecker(checker $checker): array
+    {
+        $result = [];
+        $methods = get_class_methods($checker);
+        foreach ($methods as $method) {
+            if (substr($method,0,5) == 'check') {
+                $result[] = $this->createArrayEntry($checker, $method);
+            }
+        }
+        return $result;
+    }
+    
+    /**
+     * Collect all check methods from all install checker classes
+     * @return array
+     */
+    protected function collectChecks(): array
     {
         $result = [];
         foreach ($this->checker_classes as $checker_class) {
             $checker = new $checker_class();
-            $result = array_merge($result,$this->performChecks($checker,$repair, $callback));
+            $result = array_merge($result, $this->collectChecksFromChecker($checker));
         }
+        $this->total_tests = count($result);
         return $result;
+    }
+    
+    /**
+     Runs through each installed checker class and calls perfOrmChecks()
+     */
+    protected function walkChecks(array $checks, bool $repair, $callback): array 
+    {
+        foreach ($checks as $check) {
+            $this->performSingleCheck($check->checker, $check->method, $repair, $callback);
+        }
+        return $this->messages;
     }
     
     /**
@@ -161,6 +224,14 @@ class Checks extends Loggable
         return $result;
     }
         
+    /**
+     * Just calls the three single tasks
+     * @param checker $checker
+     * @param string $method
+     * @param bool $repair
+     * @param unknown $callback
+     * Test: not tested because trivial
+     */
     protected function performSingleCheck(checker $checker, string $method, bool $repair, $callback)
     {
         $this->doPerformSingleCheck($checker, $method, $repair);
@@ -168,6 +239,13 @@ class Checks extends Loggable
         $this->processSingleCheckResult($checker, $callback);
     }
     
+    /**
+     * Just calls the check method and ignores exceptions
+     * @param checker $checker
+     * @param string $method
+     * @param bool $repair
+     * Test: testPerformSingleCheck
+     */
     protected function doPerformSingleCheck(checker $checker, string $method, bool $repair)
     {
         try {
@@ -177,14 +255,24 @@ class Checks extends Loggable
         }        
     }
     
+    /**
+     * Calles the given callback (if it is a callback) with the given parameters
+     * Test: testCallCallback
+     */
     protected function callCallback(checker $checker, $callback)
     {
         if (is_callable($callback)) {
-            $callback($checker->getLastResult());
+            $callback($checker, $this);
         }        
     }
     
-    protected function processSingleCheckResult(checker $checker, $callback)
+    /**
+     * Increases the according counter depending on the result of the last check
+     * @param checker $checker
+     * @throws CheckException
+     * Test: testProcessSingleCheckResult
+     */
+    protected function processSingleCheckResult(checker $checker)
     {
         switch ($checker->getLastResult()) {
             case 'passed':
@@ -204,12 +292,22 @@ class Checks extends Loggable
         }        
     }
     
+    /**
+     * Marks the last check as passed and increases the according counters
+     * @param string $message A descriptive message
+     * Test: testLastCheck
+     */
     protected function lastCheckPassed()
     {
         $this->tests_performed++;
         $this->tests_passed++;
     }
     
+    /**
+     * Marks the last check as failed and not repaired and increases the according counters
+     * @param string $message A descriptive message
+     * Test: testLastCheck
+     */
     protected function lastCheckFailed(string $message)
     {
         $this->tests_performed++;
@@ -217,6 +315,11 @@ class Checks extends Loggable
         $this->messages[] = $message;
     }
 
+    /**
+     * Marks the last check as repaired and increases the according counters
+     * @param string $message A descriptive message
+     * Test: testLastCheck
+     */
     protected function lastCheckRepaired(string $message)
     {
         $this->tests_performed++;
@@ -225,6 +328,11 @@ class Checks extends Loggable
         $this->messages[] = $message;
     }
     
+    /**
+     * Marks the last check as unrepairable and increases the according counters
+     * @param string $message A descriptive message 
+     * Test: testLastCheck
+     */
     protected function lastCheckUnrepairable(string $message)
     {
         $this->tests_performed++;
