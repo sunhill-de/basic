@@ -157,4 +157,17 @@ trait SunhillTrait {
         $this->assertTrue(true);
     }
     
+    /**
+     * Creates a StdClass and fills it with the given key value pairs
+     * @param unknown $values
+     * @return \StdClass
+     */
+    protected function makeStdClass($values): \StdClass
+    {
+        $result = new \StdClass();
+        foreach ($values as $key => $value) {
+            $result->$key = $value;
+        }
+        return $result;
+    }
 }
