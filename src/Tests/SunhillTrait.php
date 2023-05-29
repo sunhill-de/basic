@@ -6,14 +6,21 @@ use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
 
 trait SunhillTrait {
         
-    protected function assertDatabaseHasTable(string $table,$message='') {
+    protected function assertDatabaseHasTable(string $table,$message='') 
+    {
         self::assertThat($table, new DatabaseHasTableConstraint(),$message );
     }
     
-    protected function assertDatabaseHasNotTable(string $table,$message='') {
+    protected function assertDatabaseHasNotTable(string $table,$message='') 
+    {
+        $this->assertDatabaseMissingTable($table, $message);
+    }
+    
+    protected function assertDatabaseMissingTable(string $table, $message = '')
+    {
         self::assertThat($table,$this->logicalNot(
             new DatabaseHasTableConstraint()
-            ),$message );
+            ),$message );        
     }
     
     /**
