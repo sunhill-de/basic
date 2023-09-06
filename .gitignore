@@ -12,3 +12,4 @@ composer.lock
 /doc/coverage
 /.phpunit*
 composer-dev.lock
+DEADJOE
