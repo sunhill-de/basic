@@ -52,7 +52,7 @@ trait SunhillTrait {
             $name = $match['name'];
             $subfield = $match['subfield'];
             $index = $match['index'];
-            return $loader->$name[$index]->$subfield;
+            return $loader->$name[intval($index)]->$subfield;
         } else if (preg_match('/(?P<name>\w+)\[(?P<index>\w+)\]\[(?P<index2>\w+)\]/',$fieldname,$match)) {
             $name = $match['name'];
             $index2 = $match['index2'];
