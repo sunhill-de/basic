@@ -61,7 +61,7 @@ class SunhillTestCaseTest extends SunhillOrchestraTestCase
     public function testCheckArrayFail2() {
         $this->assertTrue($this->checkArrays(['A','B','C'],['A','B','D']));
     }
-    
+        
     public function testAssertArrayContainsPass() {
         $this->assertArrayContains(['A','B','C'],['A','B','C']);
     }
@@ -70,6 +70,48 @@ class SunhillTestCaseTest extends SunhillOrchestraTestCase
         $this->assertArrayContains(['A','B','C'],['A','B','C','D']);
     }
 
+    public function testCheckStdClass_pass1() 
+    {
+        $test = new \StdClass();
+        $test->a = 10;
+        $test->b = 20;
+        $this->assertStdClassHasValues(['a'=>10,'b'=>20], $test);
+    }
+    
+    public function testCheckStdClass_pass2()
+    {
+        $test = new \StdClass();
+        $test->a = 10;
+        $test->b = 20;
+        $this->assertStdClassHasValues(['a'=>10], $test);
+    }
+    
+    public function testCheckStdClass_fail1()
+    {
+        $this->expectException('PHPUnit\Framework\ExpectationFailedException');
+        $test = new \StdClass();
+        $test->a = 10;
+        $this->assertStdClassHasValues(['a'=>10,'b'=>20], $test);
+    }
+    
+    public function testCheckStdClass_fail2()
+    {
+        $this->expectException('PHPUnit\Framework\ExpectationFailedException');
+        $test = new \StdClass();
+        $test->a = 11;
+        $test->b = 20;
+        $this->assertStdClassHasValues(['a'=>10,'b'=>20], $test);
+    }
+    
+    public function testCheckStdClass_fail3()
+    {
+        $this->expectException('PHPUnit\Framework\ExpectationFailedException');
+        $test = new \StdClass();
+        $test->a = 11;
+        $test->b = 20;
+        $this->assertStdClassHasValues(['a'=>10,'c'=>20], $test);
+    }
+    
     public function testGetFieldSimple() {
         $test = new \StdClass();
         $test->test = 'A';

@@ -3,6 +3,7 @@
 namespace Sunhill\Basic\Tests;
 
 use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
+use Sunhill\Basic\Tests\Constraints\StdClassContainedConstraint;
 
 trait SunhillTrait {
         
@@ -21,6 +22,11 @@ trait SunhillTrait {
         self::assertThat($table,$this->logicalNot(
             new DatabaseHasTableConstraint()
             ),$message );        
+    }
+    
+    protected function assertStdClassHasValues(array $expect, \StdClass $test, $message = '')
+    {
+        self::assertThat($expect, new StdClassContainedConstraint($test), $message);    
     }
     
     /**
