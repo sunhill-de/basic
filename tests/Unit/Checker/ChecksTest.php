@@ -51,7 +51,7 @@ class ChecksTest extends SunhillOrchestraTestCase
         $this->assertEquals(0,$test->$methodname());
     }
     
-    public function ReturnProvider()
+    public static function ReturnProvider()
     {
         return [
             ['tests_performed','getTestsPerformed'],
@@ -83,7 +83,7 @@ class ChecksTest extends SunhillOrchestraTestCase
         $this->assertEquals($unrepairable, $test->getTestsUnrepairable());
     }
     
-    public function LastTestProvider()
+    public static function LastTestProvider()
     {
         return [
             ['lastCheckPassed',1,1,0,0,0],
@@ -118,7 +118,7 @@ class ChecksTest extends SunhillOrchestraTestCase
         $this->assertEquals($unrepairable, $test->getTestsUnrepairable());        
     }
     
-    public function processSingleCheckResultProvider()
+    public static function processSingleCheckResultProvider()
     {
         return [
             ['passed',1,1,0,0,0],
