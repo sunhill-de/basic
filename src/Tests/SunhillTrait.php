@@ -6,7 +6,16 @@ use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
 use Sunhill\Basic\Tests\Constraints\StdClassContainedConstraint;
 
 trait SunhillTrait {
-        
+    
+    protected function assertValueEquals($expected, $actual, $message = '')
+    {
+        if (is_callable($expected)) {
+            $this->assertEquals($expected(), $actual, $message);
+        } else {
+            $this->assertEquals($expected, $actual, $message);
+        }
+    }
+    
     protected function assertDatabaseHasTable(string $table,$message='') 
     {
         self::assertThat($table, new DatabaseHasTableConstraint(),$message );

@@ -174,4 +174,10 @@ class SunhillTestCaseTest extends SunhillOrchestraTestCase
         $this->expectException('PHPUnit\Framework\ExpectationFailedException');
         $this->assertDatabaseHasNotTable('testtable');
     }
+    
+    public function testAssertValueEquals()
+    {
+        $this->assertValueEquals(function() { return 5; },5);
+        $this->assertValueEquals(5,5);
+    }
 }
