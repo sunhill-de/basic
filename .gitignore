@@ -13,3 +13,5 @@ composer.lock
 /.phpunit*
 composer-dev.lock
 DEADJOE
+.settings/
+.project
