@@ -1,2 +1,2 @@
 #!/bin/bash
-./vendor/bin/phpunit $1 $2
+./vendor/bin/pest $1 $2
