@@ -13,12 +13,17 @@
 
 namespace Sunhill\Basic\Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Sunhill\Basic\Tests\Constraints\DatabaseHasTableConstraint;
-use Tests\CreatesApplication;
+use Orchestra\Testbench\TestCase as Orchestra;
+use Sunhill\Basic\SunhillBasicServiceProvider;
 
-abstract class SunhillOrchestraTestCase extends BaseTestCase {
-
-    use SunhillTrait;
+class SunhillTestCase extends Orchestra
+{
+    
+    protected function getPackageProviders($app)
+    {
+        return [
+            SunhillBasicServiceProvider::class,
+        ];
+    }
     
 }
