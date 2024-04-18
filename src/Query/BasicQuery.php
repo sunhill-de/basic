@@ -3,6 +3,8 @@
 namespace Sunhill\Basic\Query;
 
 use Illuminate\Support\Collection;
+use Sunhill\Basic\Query\Exceptions\InvalidOrderException;
+use Sunhill\Basic\Query\Exceptions\NoUnaryConditionException;
 
 abstract class BasicQuery
 {

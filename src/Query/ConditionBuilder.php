@@ -4,6 +4,8 @@ namespace Sunhill\Basic\Query;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Sunhill\Basic\Query\Exceptions\TooManyWhereParametersException;
+use Sunhill\Basic\Query\Exceptions\NotAllowedRelationException;
 
 class ConditionBuilder
 {

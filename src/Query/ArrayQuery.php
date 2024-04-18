@@ -15,6 +15,8 @@
 
 namespace Sunhill\Basic\Query;
 
+use Sunhill\Basic\Query\Exceptions\InvalidTargetException;
+
 abstract class ArrayQuery extends BasicQuery
 {
     

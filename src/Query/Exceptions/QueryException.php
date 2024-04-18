@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Basic\Query;
+namespace Sunhill\Basic\Query\Exceptions;
 
 use Sunhill\Basic\SunhillException;
 
