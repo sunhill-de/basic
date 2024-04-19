@@ -25,7 +25,12 @@ abstract class BasicQuery
     
     public function __construct()
     {
-        $this->condition_builder = new ConditionBuilder();    
+        $this->condition_builder = new ConditionBuilder($this);    
+    }
+    
+    public function getKey($entry, $key)
+    {
+        return $entry->$key;    
     }
     
     protected function targetCount()

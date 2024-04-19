@@ -10,6 +10,13 @@ use Sunhill\Basic\Query\Exceptions\NotAllowedRelationException;
 class ConditionBuilder
 {
 
+    protected $owner;
+    
+    public function __construct(BasicQuery $query)
+    {
+        $this->owner = $query;    
+    }
+    
     protected $conditions = [];
     
     protected function handleWhere(string $combine, $key, $relation, $value)
@@ -21,7 +28,7 @@ class ConditionBuilder
             if (!is_null($relation) || !is_null($value)) {
                 throw new TooManyWhereParametersException("Where conditions with callback may only take one parameter.");
             }
-            $entry->callback = new ConditionBuilder();
+            $entry->callback = new ConditionBuilder($this->owner);
             $key($entry->callback);
         } else {
             if (is_null($value)) { // When no relation is given assume =
@@ -108,7 +115,7 @@ class ConditionBuilder
         if (!property_exists($entry,$key_field)) {
             return false;
         }
-        $key = $entry->$key_field;
+        $key = $this->owner->getKey($entry,$key_field);
         $value = $condition->value;
         return $this->matchSimpleCondition($key, $condition->relation, $value);
     }
