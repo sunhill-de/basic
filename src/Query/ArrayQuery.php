@@ -49,12 +49,12 @@ abstract class ArrayQuery extends BasicQuery
         $key = $this->order_key;
         $dir = $this->order_direction;
         return $list->sort(function($key1,$key2) use ($key, $dir) {
-            if ($key1->$key == $key2->$key) {
+            if ($this->getKey($key1,$key) == $this->getKey($key2,$key)) {
                 return 0;
             } else if ($dir == 'asc') {
-                return ($key1->$key < $key2->$key) ? -1 : 1;
+                return ($this->getKey($key1,$key) < $this->getKey($key2,$key)) ? -1 : 1;
             } else {
-                return ($key1->$key > $key2->$key) ? -1 : 1;
+                return ($this->getKey($key1,$key) > $this->getKey($key2,$key)) ? -1 : 1;
             }
         });
     }
