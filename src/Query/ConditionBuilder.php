@@ -112,7 +112,7 @@ class ConditionBuilder
             return $this->matchCallbackCondition($entry, $condition);
         }
         $key_field = $condition->key;
-        if (!property_exists($entry,$key_field)) {
+        if (!$this->owner->propertyExists($entry,$key_field)) {
             return false;
         }
         $key = $this->owner->getKey($entry,$key_field);

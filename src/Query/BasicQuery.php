@@ -27,6 +27,11 @@ abstract class BasicQuery
     {
         $this->condition_builder = new ConditionBuilder($this);    
     }
+
+    public function propertyExists($entry, $key)
+    {
+        return property_exists($entry, $key);
+    }
     
     public function getKey($entry, $key)
     {
