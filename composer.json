@@ -20,7 +20,10 @@
 		"psr-4" : {
 			"Sunhill\\Basic\\Tests\\" : "tests/",
 			"Sunhill\\Basic\\" : "src"
-		}
+		},
+		"files": [
+			"src/Helpers/sunhill_helpers.php"
+		]
 	},
 	"extra" : {
 		"laravel" : {
@@ -30,6 +33,11 @@
 		"aliases": {
 			"Checks": "Sunhill\\Basic\\Facades\\Checks"
 		}	
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
 		}
 	}
 }
